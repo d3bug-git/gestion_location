@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace AnnonceBDD
 {
-    public class clsTowns : INotifyPropertyChanged
+    public class Towns : INotifyPropertyChanged
     {
         public int ID { get; set; }
         public string NameTown { get; set; }

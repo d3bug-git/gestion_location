@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace AnnonceBDD
 {
-    public class clsCountries : INotifyPropertyChanged
+    public class Countries : INotifyPropertyChanged
     {
         public int ID { get; set; }
         public string Country { get; set; }

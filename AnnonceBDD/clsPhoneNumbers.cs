@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace AnnonceBDD
 {
-    public class clsPhoneNumbers : INotifyPropertyChanged
+    public class PhoneNumbers : INotifyPropertyChanged
     {
         public int ID { get; set; }
         public string Tel { get; set; }

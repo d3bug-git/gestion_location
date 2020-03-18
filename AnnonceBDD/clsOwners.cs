@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace AnnonceBDD
 {
@@ -18,6 +19,8 @@ namespace AnnonceBDD
         public string StreetNumber { get; set; }
         public string CompleteName => $"{FirstName} {LastName}";
         public string Resume => $"{CompleteName}";
+
+        public ObservableCollection<Adverts> Adverts { get; set; } = new ObservableCollection<Adverts>();
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

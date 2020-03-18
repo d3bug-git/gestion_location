@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel;
 
+
 namespace AnnonceBDD
 {
-    public class clsBooks : INotifyPropertyChanged
+    public class Books : INotifyPropertyChanged
     {
-        public int ID { get; set; }
+        public int AdvertID { get; set; }
+        public Adverts Advert { get; set; }
+
+        public int CustomersID { get; set; }
+        public Customers Customer { get; set; }
+
         public DateTime DateArrival { get; set; }
         public DateTime DateDeparture { get; set; }
         public int NbAdults { get; set; }

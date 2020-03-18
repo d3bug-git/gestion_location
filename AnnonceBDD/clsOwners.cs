@@ -5,7 +5,7 @@ using System.ComponentModel;
 
 namespace AnnonceBDD
 {
-    public class clsCustomers : INotifyPropertyChanged
+    public class clsOwners : INotifyPropertyChanged
     {
         public int ID { get; set; }
         public string Password { get; set; }

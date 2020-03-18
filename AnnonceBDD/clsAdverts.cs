@@ -13,7 +13,7 @@ namespace AnnonceBDD
         public int NbRooms { get; set; }
         public int NbBeds { get; set; }
         public int NbBathrooms { get; set; }
-        public int StreetNumber { get; set; }
+        public string StreetNumber { get; set; }
         public string Street { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
     }

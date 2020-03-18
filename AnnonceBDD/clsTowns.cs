@@ -12,7 +12,11 @@ namespace AnnonceBDD
         public string NameTown { get; set; }
         public string PostalCode { get; set; }
 
-        public ObservableCollection<Adverts> Adverts { get; set; } = new ObservableCollection<Adverts>();
+        public Countries Country;
+        public int CountryID;
+
+        public ObservableCollection<Customers> Costumers { get; set; } = new ObservableCollection<Customers>();
+        public ObservableCollection<Owners> Owners { get; set; } = new ObservableCollection<Owners>();
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

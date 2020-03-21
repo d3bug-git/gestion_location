@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace AnnonceBDD
 {
-    public class Towns : INotifyPropertyChanged
+    public class Town : INotifyPropertyChanged
     {
         public int ID { get; set; }
         public string NameTown { get; set; }

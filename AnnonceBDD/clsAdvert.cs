@@ -6,7 +6,7 @@ using System.Text;
 
 namespace AnnonceBDD
 {
-    public class Adverts : INotifyPropertyChanged
+    public class Advert : INotifyPropertyChanged
     {
         public int ID { get; set; }
 
@@ -19,17 +19,17 @@ namespace AnnonceBDD
         public string Street { get; set; }
 
         public int OwnerID { get; set; }
-        public Owners Owner { get; set; }
+        public Owner Owner { get; set; }
         public int CategoryID { get; set; }
-        public Categories Category { get; set; }
+        public Category Category { get; set; }
         public int TownID { get; set; }
-        public Towns Town { get; set; }
+        public Town Town { get; set; }
         /// <summary>
         /// Cardinalité de type [M:N], côté N : Plusieurs books possibles par Advert.
         /// </summary>
-        public ObservableCollection<Books> Books { get; set; } = new ObservableCollection<Books>();
-        public ObservableCollection<Schedules> Schedules { get; set; } = new ObservableCollection<Schedules>();
-        public ObservableCollection<Pictures> Pictures { get; set; } = new ObservableCollection<Pictures>();
+        public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>();
+        public ObservableCollection<Schedule> Schedules { get; set; } = new ObservableCollection<Schedule>();
+        public ObservableCollection<Picture> Pictures { get; set; } = new ObservableCollection<Picture>();
         
         public event PropertyChangedEventHandler PropertyChanged;
     }

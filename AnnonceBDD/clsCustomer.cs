@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace AnnonceBDD
 {
-    public class Owners : INotifyPropertyChanged
+    public class Customer : INotifyPropertyChanged
     {
         public int ID { get; set; }
         public string Password { get; set; }
@@ -18,14 +18,13 @@ namespace AnnonceBDD
         public string Street { get; set; }
         public string StreetNumber { get; set; }
 
-        public Towns Town;
+        public Town Town;
         public int TownID;
 
-        public ObservableCollection<PhoneNumbers> PhoneNumbers { get; set; } = new ObservableCollection<PhoneNumbers>();
+        public ObservableCollection<PhoneNumber> PhoneNumbers { get; set; } = new ObservableCollection<PhoneNumber>();
         public string CompleteName => $"{FirstName} {LastName}";
         public string Resume => $"{CompleteName}";
-
-        public ObservableCollection<Adverts> Adverts { get; set; } = new ObservableCollection<Adverts>();
+        public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>();
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

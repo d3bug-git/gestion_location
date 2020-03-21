@@ -5,18 +5,18 @@ using System.ComponentModel;
 
 namespace AnnonceBDD
 {
-    public class PhoneNumbers : INotifyPropertyChanged
+    public class PhoneNumber : INotifyPropertyChanged
     {
         public int ID { get; set; }
         public string Tel { get; set; }
 
-        public Customers Customer;
+        public Customer Customer;
         public int CustomerID;
 
-        public Owners Owner;
+        public Owner Owner;
         public int OwnerID;
 
-        public Countries Country;
+        public Country Country;
         public int CountryID;
 
         public event PropertyChangedEventHandler PropertyChanged;

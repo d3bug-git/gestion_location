@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 
 namespace AnnonceBDD
 {
@@ -13,6 +14,7 @@ namespace AnnonceBDD
         #region Propriétés
         public bool ModificationsEnAttente => BDD?.ChangeTracker.HasChanges() ?? false;
         #endregion
+        
 
         #region Constructeur de la classe
         public BDDSingleton()

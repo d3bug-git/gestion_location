@@ -25,8 +25,6 @@ namespace AnnonceBDD
         public string CompleteName => $"{FirstName} {LastName}";
         public string Resume => $"{CompleteName}";
 
-        public int TownID { get; set; }
-        public Towns Town { get; set; }
 
 
         public ObservableCollection<Books> Books { get; set; } = new ObservableCollection<Books>();

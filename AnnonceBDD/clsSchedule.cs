@@ -9,7 +9,7 @@ namespace AnnonceBDD
     public class Schedule : INotifyPropertyChanged
     {
         public int ID { get; set; }
-        public float price { get; set; }
+        public float Price { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 

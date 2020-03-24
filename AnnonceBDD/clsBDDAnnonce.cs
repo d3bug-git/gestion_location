@@ -41,6 +41,11 @@ namespace AnnonceBDD
         internal DbSet<PhoneNumber> PhoneNumbers { get; set; }
         internal DbSet<Country> Countries { get; set; }
         internal DbSet<Town> Towns { get; set; }
+        internal DbSet<Advert> Adverts { get; set; }
+        internal DbSet<Book> Books { get; set; }
+        internal DbSet<Picture> Pictures { get; set; }
+        internal DbSet<Category> Categories { get; set; }
+        internal DbSet<Schedule> Schedules { get; set; }
         #endregion
         #region Méthodes permettant d'ajouter/d'enlever des données dans les tables de la BDD
         internal Owner AddOwner(string aFirstName, string aLastName, string aeMail, string aPassword, bool aSex, string aAvatar, string aStreet, string aStreetNumber, Town aTown)
@@ -78,7 +83,41 @@ namespace AnnonceBDD
             Towns.Local.Add(lTown);
             return lTown;
         }
-
+        internal Advert AddAdvert(string aTitle, string aDescription, int aNbRooms, int aNbBeds, int aNbBathrooms, string aStreetNumber, string aStreet, Owner aOwner, Category aCategory)
+        {
+            //Ajout d'une annonce
+            Advert lAdvert = new Advert() { Title = aTitle, Description = aDescription, NbRooms= aNbRooms, NbBeds= aNbBeds, NbBathrooms= aNbBathrooms, StreetNumber= aStreetNumber, Street= aStreet, Owner= aOwner, Category= aCategory };
+            Adverts.Local.Add(lAdvert);
+            return lAdvert;
+        }
+        internal Book AddBook(Advert aAdvert, Customer aCustomer, DateTime aDateArrival, DateTime aDateDeparture, int aNbAdults, int aNbChildren, string aMessage)
+        {
+            //Ajout de la nouvelle ville
+            Book lBook = new Book() { Advert= aAdvert, Customer= aCustomer , DateArrival = aDateArrival, DateDeparture= aDateDeparture, NbAdults= aNbAdults, NbChildren= aNbChildren, Message= aMessage };
+            Books.Local.Add(lBook);
+            return lBook;
+        }
+        internal Picture AddPicture(string aPath, Advert aAdvert)
+        {
+            //Ajout d'une nouvelle picture
+            Picture lPicture = new Picture() { Path= aPath, Advert = aAdvert };
+            Pictures.Local.Add(lPicture);
+            return lPicture;
+        }
+        internal Category AddCategory(string aTitle, string aDescription, string aAvatar)
+        {
+            //Ajout d'une nouvelle picture
+            Category lCategory = new Category() { Title= aTitle, Description = aDescription, Avatar = aAvatar };
+            Categories.Local.Add(lCategory);
+            return lCategory;
+        }
+        internal Schedule AddSchedule(float aPrice, DateTime aStartDate, DateTime aEndDate, Advert aAdvert)
+        {
+            //Ajout d'une nouvelle picture
+            Schedule lSchedule = new Schedule() { Price = aPrice, StartDate = aStartDate, EndDate = aEndDate, Advert = aAdvert };
+            Schedules.Local.Add(lSchedule);
+            return lSchedule;
+        }
         internal void RemoveOwner(Owner aOwner)
         {
             //Suppression du propriètaire
@@ -88,6 +127,7 @@ namespace AnnonceBDD
         {
             //Suppression du client
             Customers.Local.Remove(aCustomer);
+
         }
         internal void RemovePhoneNumber(PhoneNumber aPhoneNumber)
         {
@@ -103,6 +143,31 @@ namespace AnnonceBDD
         {
             //Suppression de la ville
             Towns.Local.Remove(aTown);
+        }
+        internal void RemoveAdvert(Advert aAdvert)
+        {
+            //Suppression d'une annonce
+            Adverts.Local.Remove(aAdvert);
+        }
+        internal void RemoveBook(Book aBook)
+        {
+            //Suppression d'une reservation
+            Books.Local.Remove(aBook);
+        }
+        internal void RemovePicture(Picture aPicture)
+        {
+            //Suppression d'une picture
+            Pictures.Local.Remove(aPicture);
+        }
+        internal void RemoveCategory(Category aCategory)
+        {
+            //Suppression d'une categorie
+            Categories.Local.Remove(aCategory);
+        }
+        internal void RemoveSchedule(Schedule aSchedule)
+        {
+            //Suppression d'un planning
+            Schedules.Local.Remove(aSchedule);
         }
         #endregion 
     }

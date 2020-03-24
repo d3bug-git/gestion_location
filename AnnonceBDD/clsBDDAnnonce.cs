@@ -71,7 +71,7 @@ namespace AnnonceBDD
             Countries.Local.Add(lCountry);
             return lCountry;
         }
-        internal Town AddNameTown(string aNameTown, string aPostalCode, Country aCountry)
+        internal Town AddTown(string aNameTown, string aPostalCode, Country aCountry)
         {
             //Ajout de la nouvelle ville
             Town lTown = new Town() { NameTown = aNameTown, PostalCode = aPostalCode, Country = aCountry };

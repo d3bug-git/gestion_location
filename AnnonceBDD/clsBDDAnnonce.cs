@@ -47,6 +47,7 @@ namespace AnnonceBDD
         internal DbSet<Category> Categories { get; set; }
         internal DbSet<Schedule> Schedules { get; set; }
         #endregion
+
         #region Méthodes permettant d'ajouter/d'enlever des données dans les tables de la BDD
         internal Owner AddOwner(string aFirstName, string aLastName, string aeMail, string aPassword, bool aSex, string aAvatar, string aStreet, string aStreetNumber, Town aTown)
         {

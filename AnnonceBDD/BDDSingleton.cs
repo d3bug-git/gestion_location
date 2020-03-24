@@ -14,7 +14,18 @@ namespace AnnonceBDD
         #region Propriétés
         public bool ModificationsEnAttente => BDD?.ChangeTracker.HasChanges() ?? false;
         #endregion
-        
+        #region Tables de la BDD (sous forme de ReadOnlyObservableCollection)
+        private ReadOnlyObservableCollection<Owner> _Owners;
+        private ReadOnlyObservableCollection<Customer> _Customers;
+        private ReadOnlyObservableCollection<PhoneNumber> _PhoneNumbers;
+        private ReadOnlyObservableCollection<Country> _Countries;
+        private ReadOnlyObservableCollection<Town> _Towns;
+        public ReadOnlyObservableCollection<Owner> Owners => _Owners;
+        public ReadOnlyObservableCollection<Customer> Customers => _Customers;
+        public ReadOnlyObservableCollection<PhoneNumber> PhoneNumbers => _PhoneNumbers;
+        public ReadOnlyObservableCollection<Country> Countries => _Countries;
+        public ReadOnlyObservableCollection<Town> Towns => _Towns;
+        #endregion
 
         #region Constructeur de la classe
         public BDDSingleton()

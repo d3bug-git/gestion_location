@@ -34,6 +34,76 @@ namespace AnnonceBDD
             #endregion
         }
         #endregion
+        
+        #region Tables de la BDD
+        internal DbSet<Owner> Owners { get; set; }
+        internal DbSet<Customer> Customers { get; set; }
+        internal DbSet<PhoneNumber> PhoneNumbers { get; set; }
+        internal DbSet<Country> Countries { get; set; }
+        internal DbSet<Town> Towns { get; set; }
+        #endregion
+        #region Méthodes permettant d'ajouter/d'enlever des données dans les tables de la BDD
+        internal Owner AddOwner(string aFirstName, string aLastName, string aeMail, string aPassword, bool aSex, string aAvatar, string aStreet, string aStreetNumber, Town aTown)
+        {
+            //Ajout du nouveau propriètaire
+            Owner lOwner = new Owner() { FirstName = aFirstName, LastName = aLastName, eMail = aeMail, Password = aPassword, Sex = aSex, Avatar = aAvatar, Street = aStreet, StreetNumber = aStreetNumber, Town = aTown };
+            Owners.Local.Add(lOwner);
+            return lOwner;
+        }
+        internal Customer AddCustomer(string aFirstName, string aLastName, string aeMail, string aPassword, bool aSex, string aAvatar, string aStreet, string aStreetNumber, Town aTown)
+        {
+            //Ajout du nouveau client
+            Customer lCustomer = new Customer() { FirstName = aFirstName, LastName = aLastName, eMail = aeMail, Password = aPassword, Sex = aSex, Avatar = aAvatar, Street = aStreet, StreetNumber = aStreetNumber, Town = aTown };
+            Customers.Local.Add(lCustomer);
+            return lCustomer;
+        }
+        internal PhoneNumber AddPhoneNumber(string aTel, Customer aCustomer, Owner aOwner, Country aCountry)
+        {
+            //Ajout du nouveau téléphone
+            PhoneNumber lPhoneNumber = new PhoneNumber() { Tel = aTel, Customer = aCustomer, Owner = aOwner, Country = aCountry };
+            PhoneNumbers.Local.Add(lPhoneNumber);
+            return lPhoneNumber;
+        }
+        internal Country AddCountry(string aNameCountry, string aPrefix, string aIndicatif)
+        {
+            //Ajout du nouveau pays
+            Country lCountry = new Country() { NameCountry = aNameCountry, Prefix = aPrefix, Indicatif = aIndicatif };
+            Countries.Local.Add(lCountry);
+            return lCountry;
+        }
+        internal Town AddNameTown(string aNameTown, string aPostalCode, Country aCountry)
+        {
+            //Ajout de la nouvelle ville
+            Town lTown = new Town() { NameTown = aNameTown, PostalCode = aPostalCode, Country = aCountry };
+            Towns.Local.Add(lTown);
+            return lTown;
+        }
 
+        internal void RemoveOwner(Owner aOwner)
+        {
+            //Suppression du propriètaire
+            Owners.Local.Remove(aOwner);
+        }
+        internal void RemoveCustomer(Customer aCustomer)
+        {
+            //Suppression du client
+            Customers.Local.Remove(aCustomer);
+        }
+        internal void RemovePhoneNumber(PhoneNumber aPhoneNumber)
+        {
+            //Suppression du téléphone
+            PhoneNumbers.Local.Remove(aPhoneNumber);
+        }
+        internal void RemoveCountry(Country aCountry)
+        {
+            //Suppression du pays
+            Countries.Local.Remove(aCountry);
+        }
+        internal void RemoveCountry(Town aTown)
+        {
+            //Suppression de la ville
+            Towns.Local.Remove(aTown);
+        }
+        #endregion 
     }
 }

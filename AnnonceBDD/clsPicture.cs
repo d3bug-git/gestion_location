@@ -6,19 +6,10 @@ using System.ComponentModel;
 namespace AnnonceBDD
 {
    public class Picture : INotifyPropertyChanged
-   {
+    {
         public int ID { get; set; }
-        private string cPath;
-        public string Path {
-            get => cPath;
-            set
-            {
-                if (value == null || value == "")
-                {
-                    throw new ArgumentNullException($"{nameof(Path)} : Veuillez spécifiez une image (valeur NULL ou chaine vide).");
-                }
-            }
-        }
+        public string Path { get; set; }
+
         public int AdvertID { get; set; }
         public Advert Advert { get; set; }
 

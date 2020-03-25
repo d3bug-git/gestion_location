@@ -26,17 +26,18 @@ namespace AnnonceBDD
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            FakeData FakeData = new FakeData();
+
             #region Contraintes liées au modèle de la BDD
             modelBuilder.Entity<Book>().HasKey(sc => new { sc.AdvertID, sc.CustomerID });
             #endregion
 
             #region Données présentes par défaut dans la BDD
-            
+            modelBuilder.Entity<Category>().HasData(FakeData.Category(5));
+            modelBuilder.Entity<Country>().HasData(FakeData.Country(5));
             #endregion
         }
         #endregion
-
-
 
         #region Tables de la BDD
         internal DbSet<Owner> Owners { get; set; }

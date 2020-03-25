@@ -21,6 +21,16 @@ namespace AnnonceBDD
         {
             BDD = new BDDAnnonce();
             BDD.Database.EnsureCreated();
+            BDD?.Owners.Load();
+            _owners = new ReadOnlyObservableCollection<Owner>(BDD?.Owners.Local.ToObservableCollection());
+            BDD?.Customers.Load();
+            _customers = new ReadOnlyObservableCollection<Customer>(BDD?.Customers.Local.ToObservableCollection());
+            BDD?.PhoneNumbers.Load();
+            _phoneNumbers = new ReadOnlyObservableCollection<PhoneNumber>(BDD?.PhoneNumbers.Local.ToObservableCollection());
+            BDD?.Countries.Load();
+            _countries = new ReadOnlyObservableCollection<Country>(BDD?.Countries.Local.ToObservableCollection());
+            BDD?.Towns.Load();
+            _towns = new ReadOnlyObservableCollection<Town>(BDD?.Towns.Local.ToObservableCollection());
             BDD?.Adverts.Load();
             _adverts = new ReadOnlyObservableCollection<Advert>(BDD?.Adverts.Local.ToObservableCollection());
             BDD?.Books.Load();

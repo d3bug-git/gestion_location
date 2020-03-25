@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 namespace AnnonceBDD
 {
@@ -34,7 +35,14 @@ namespace AnnonceBDD
             #endregion
         }
         #endregion
-        
+
+        #region Constante pour la gestion des erreurs
+        private const int PASSWORD_LENGTH = 8;
+        private const int MIN_ELEMENT = 1;
+        private const string EMAIL_EXPRESSION = @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+        private Security _security = new Security();
+        #endregion
+
         #region Tables de la BDD
         internal DbSet<Owner> Owners { get; set; }
         internal DbSet<Customer> Customers { get; set; }
@@ -51,20 +59,48 @@ namespace AnnonceBDD
         #region Méthodes permettant d'ajouter/d'enlever des données dans les tables de la BDD
         internal Owner AddOwner(string aFirstName, string aLastName, string aeMail, string aPassword, bool aSex, string aAvatar, string aStreet, string aStreetNumber, Town aTown)
         {
+            //Gestion des erreurs
+            if (aFirstName == null || aFirstName == "") { throw new ArgumentNullException($"{nameof(AddOwner)} : Le propriétaire doit avoir un nom (valeur NULL ou chaine vide)."); }
+            if (aLastName == null || aLastName == "") { throw new ArgumentNullException($"{nameof(AddOwner)} : Le propriétaire doit avoir un prénom (valeur NULL ou chaine vide)."); }
+            if (aeMail == null || aeMail == "") { throw new ArgumentNullException($"{nameof(AddOwner)} : Le propriétaire doit avoir une adresse email (valeur NULL ou adresse email vide)."); }
+            if (!Regex.IsMatch(aeMail, EMAIL_EXPRESSION)) { throw new ArgumentNullException($"{nameof(AddOwner)} : Adresse email du propriétaire invalide."); }
+            if (aPassword == null || aPassword == "") { throw new ArgumentNullException($"{nameof(AddOwner)} : Le propriétaire doit avoir un mot de passe (valeur NULL ou mot de passe vide)."); }
+            if (aPassword.Length < PASSWORD_LENGTH) { throw new ArgumentNullException($"{nameof(AddOwner)} : Le propriétaire doit avoir un mot de passe > {PASSWORD_LENGTH} caractères"); }
+            if (aAvatar == null || aAvatar == "") { throw new ArgumentNullException($"{nameof(AddOwner)} : Le propriétaire doit avoir un avatar (valeur NULL ou avatar vide)."); }
+            if (aStreet == null || aStreet == "") { throw new ArgumentNullException($"{nameof(AddOwner)} : Le propriétaire doit avoir une adresse (valeur NULL ou adresse vide)."); }
+            if (aStreetNumber == null || aStreetNumber == "") { throw new ArgumentNullException($"{nameof(AddOwner)} : Le propriétaire doit avoir un numéro de rue (valeur NULL ou numéro de rue vide)."); }
+            if (aTown == null) { throw new ArgumentNullException($"{nameof(AddOwner)} : Le propriétaire doit avoir une ville (valeur NULL ou ville vide)."); }
+
             //Ajout du nouveau propriètaire
-            Owner lOwner = new Owner() { FirstName = aFirstName, LastName = aLastName, eMail = aeMail, Password = aPassword, Sex = aSex, Avatar = aAvatar, Street = aStreet, StreetNumber = aStreetNumber, Town = aTown };
+            Owner lOwner = new Owner() { FirstName = aFirstName, LastName = aLastName, eMail = aeMail, Password = this._security.GenerateHash(aPassword), Sex = aSex, Avatar = aAvatar, Street = aStreet, StreetNumber = aStreetNumber, Town = aTown };
             Owners.Local.Add(lOwner);
             return lOwner;
         }
         internal Customer AddCustomer(string aFirstName, string aLastName, string aeMail, string aPassword, bool aSex, string aAvatar, string aStreet, string aStreetNumber, Town aTown)
         {
+            //Gestion des erreurs
+            if (aFirstName == null || aFirstName == "") { throw new ArgumentNullException($"{nameof(AddCustomer)} : Le client doit avoir un nom (valeur NULL ou chaine vide)."); }
+            if (aLastName == null || aLastName == "") { throw new ArgumentNullException($"{nameof(AddCustomer)} : Le client doit avoir un prénom (valeur NULL ou chaine vide)."); }
+            if (aeMail == null || aeMail == "") { throw new ArgumentNullException($"{nameof(AddCustomer)} : Le client doit avoir une adresse email (valeur NULL ou adresse email vide)."); }
+            if (!Regex.IsMatch(aeMail, EMAIL_EXPRESSION)) { throw new ArgumentNullException($"{nameof(AddCustomer)} : Adresse email du client  invalide."); }
+            if (aPassword == null || aPassword == "") { throw new ArgumentNullException($"{nameof(AddCustomer)} : Le client doit avoir un mot de passe (valeur NULL ou mot de passe vide)."); }
+            if (aPassword.Length < PASSWORD_LENGTH) { throw new ArgumentNullException($"{nameof(AddCustomer)} : Le client doit avoir un mot de passe > {PASSWORD_LENGTH} caractères"); }
+            if (aAvatar == null || aAvatar == "") { throw new ArgumentNullException($"{nameof(AddCustomer)} : Le client doit avoir un avatar (valeur NULL ou avatar vide)."); }
+            if (aStreet == null || aStreet == "") { throw new ArgumentNullException($"{nameof(AddCustomer)} : Le client doit avoir une adresse (valeur NULL ou adresse vide)."); }
+            if (aStreetNumber == null || aStreetNumber == "") { throw new ArgumentNullException($"{nameof(AddCustomer)} : Le client doit avoir un numéro de rue (valeur NULL ou numéro de rue vide)."); }
+            if (aTown == null) { throw new ArgumentNullException($"{nameof(AddCustomer)} : Le client doit avoir une ville (valeur NULL)."); }
+
             //Ajout du nouveau client
-            Customer lCustomer = new Customer() { FirstName = aFirstName, LastName = aLastName, eMail = aeMail, Password = aPassword, Sex = aSex, Avatar = aAvatar, Street = aStreet, StreetNumber = aStreetNumber, Town = aTown };
+            Customer lCustomer = new Customer() { FirstName = aFirstName, LastName = aLastName, eMail = aeMail, Password = this._security.GenerateHash(aPassword), Sex = aSex, Avatar = aAvatar, Street = aStreet, StreetNumber = aStreetNumber, Town = aTown };
             Customers.Local.Add(lCustomer);
             return lCustomer;
         }
         internal PhoneNumber AddPhoneNumber(string aTel, Customer aCustomer, Owner aOwner, Country aCountry)
         {
+            //Gestion des erreurs
+            if (aTel == null || aTel == "") { throw new ArgumentNullException($"{nameof(AddCustomer)} : Le numéro de téléphone (valeur NULL ou chaine vide)."); }
+            if (aCountry == null) { throw new ArgumentNullException($"{nameof(AddPhoneNumber)} : Le numéro de téléphone doit être liée à un pays."); }
+
             //Ajout du nouveau téléphone
             PhoneNumber lPhoneNumber = new PhoneNumber() { Tel = aTel, Customer = aCustomer, Owner = aOwner, Country = aCountry };
             PhoneNumbers.Local.Add(lPhoneNumber);
@@ -85,7 +121,21 @@ namespace AnnonceBDD
             return lTown;
         }
         internal Advert AddAdvert(string aTitle, string aDescription, int aNbRooms, int aNbBeds, int aNbBathrooms, string aStreetNumber, string aStreet, Owner aOwner, Category aCategory)
-        {            
+         
+        {
+            //Gestion des erreurs
+            if (aTitle == null || aTitle == "") { throw new ArgumentNullException($"{nameof(AddAdvert)} : L'annonce  doit avoir un nom (valeur NULL ou chaine vide)."); }
+            if (aDescription == null || aDescription == "") { throw new ArgumentNullException($"{nameof(AddAdvert)} L'annonce doit avoir un nom (valeur NULL ou chaine vide)."); }
+            if (aNbRooms < MIN_ELEMENT) { throw new ArgumentNullException($"{nameof(AddAdvert)} : L'annonce doit avoir au moins {MIN_ELEMENT} pièce(s)."); }
+            if (aNbBeds < MIN_ELEMENT) { throw new ArgumentNullException($"{nameof(AddAdvert)} : L'annonce doit avoir au moins {MIN_ELEMENT} lit(s)."); }
+            if (aNbBathrooms < MIN_ELEMENT) { throw new ArgumentNullException($"{nameof(AddAdvert)} : L'annonce doit avoir au moins {MIN_ELEMENT} chambre(s)."); }
+            if (aStreet == null || aStreet == "") { throw new ArgumentNullException($"{nameof(AddAdvert)} : L'annonce doit avoir une adresse (valeur NULL ou adresse vide)."); }
+            if (aStreetNumber == null || aStreetNumber == "") { throw new ArgumentNullException($"{nameof(AddAdvert)} : L'annonce doit avoir un numéro de rue (valeur NULL ou numéro de rue vide)."); }
+            if (aOwner == null) { throw new ArgumentNullException($"{nameof(AddAdvert)} : L'annonce doit avoir un propriétaire (valeur NULL)."); }
+            if (aCategory == null) { throw new ArgumentNullException($"{nameof(AddAdvert)} : L'annonce doit avoir une catégorie  (valeur NULL)."); }
+
+            
+            
             //Ajout d'une annonce
             Advert lAdvert = new Advert() { Title = aTitle, Description = aDescription, NbRooms= aNbRooms, NbBeds= aNbBeds, NbBathrooms= aNbBathrooms, StreetNumber= aStreetNumber, Street= aStreet, Owner= aOwner, Category= aCategory };
             Adverts.Local.Add(lAdvert);

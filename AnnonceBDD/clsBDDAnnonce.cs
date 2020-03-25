@@ -121,6 +121,8 @@ namespace AnnonceBDD
         }
         internal Picture AddPicture(string aPath, Advert aAdvert)
         {
+            if (aAdvert == null) { throw new ArgumentNullException($"{nameof(AddPicture)} : L'image doit être associée à une annonce (valeur NULL)."); }
+
             //Ajout d'une nouvelle picture
             Picture lPicture = new Picture() { Path= aPath, Advert = aAdvert };
             Pictures.Local.Add(lPicture);
@@ -135,6 +137,8 @@ namespace AnnonceBDD
         }
         internal Schedule AddSchedule(float aPrice, DateTime aStartDate, DateTime aEndDate, Advert aAdvert)
         {
+            if (aAdvert == null) { throw new ArgumentNullException($"{nameof(AddPicture)} : Le calendrier de prix doit être associé à une annonce (valeur NULL)."); }
+
             //Ajout d'une nouvelle picture
             Schedule lSchedule = new Schedule() { Price = aPrice, StartDate = aStartDate, EndDate = aEndDate, Advert = aAdvert };
             Schedules.Local.Add(lSchedule);

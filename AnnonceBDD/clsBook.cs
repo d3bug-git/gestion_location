@@ -11,7 +11,7 @@ namespace AnnonceBDD
         public int AdvertID { get; set; }
         public Advert Advert { get; set; }
 
-        public int CustomersID { get; set; }
+        public int CustomerID { get; set; }
         public Customer Customer { get; set; }
 
         public DateTime DateArrival { get; set; }

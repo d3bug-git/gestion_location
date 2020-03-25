@@ -27,16 +27,16 @@ namespace AnnonceBDD
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Contraintes liées au modèle de la BDD
-
+            modelBuilder.Entity<Book>().HasKey(sc => new { sc.AdvertID, sc.CustomerID });
             #endregion
 
             #region Données présentes par défaut dans la BDD
-
+            
             #endregion
         }
         #endregion
 
-        
+
 
         #region Tables de la BDD
         internal DbSet<Owner> Owners { get; set; }

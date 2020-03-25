@@ -121,7 +121,6 @@ namespace AnnonceBDD
             return lTown;
         }
         internal Advert AddAdvert(string aTitle, string aDescription, int aNbRooms, int aNbBeds, int aNbBathrooms, string aStreetNumber, string aStreet, Owner aOwner, Category aCategory)
-         
         {
             //Gestion des erreurs
             if (aTitle == null || aTitle == "") { throw new ArgumentNullException($"{nameof(AddAdvert)} : L'annonce  doit avoir un nom (valeur NULL ou chaine vide)."); }

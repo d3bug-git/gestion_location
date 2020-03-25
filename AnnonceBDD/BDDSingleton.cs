@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.ObjectModel;
 
 namespace AnnonceBDD
@@ -20,35 +21,40 @@ namespace AnnonceBDD
         {
             BDD = new BDDAnnonce();
             BDD.Database.EnsureCreated();
-            _Adverts = new ReadOnlyObservableCollection<Advert>(BDD?.Adverts.Local.ToObservableCollection());
+            BDD?.Adverts.Load();
+            _adverts = new ReadOnlyObservableCollection<Advert>(BDD?.Adverts.Local.ToObservableCollection());
+            BDD?.Books.Load();
             _Books = new ReadOnlyObservableCollection<Book>(BDD?.Books.Local.ToObservableCollection());
-            _Pictures = new ReadOnlyObservableCollection<Picture>(BDD?.Pictures.Local.ToObservableCollection());
-            _Categories = new ReadOnlyObservableCollection<Category>(BDD?.Categories.Local.ToObservableCollection());
-            _Schedules = new ReadOnlyObservableCollection<Schedule>(BDD?.Schedules.Local.ToObservableCollection());
+            BDD?.Pictures.Load();
+            _pictures = new ReadOnlyObservableCollection<Picture>(BDD?.Pictures.Local.ToObservableCollection());
+            BDD?.Categories.Load();
+            _categories = new ReadOnlyObservableCollection<Category>(BDD?.Categories.Local.ToObservableCollection());
+            BDD?.Schedules.Load();
+            _schedules = new ReadOnlyObservableCollection<Schedule>(BDD?.Schedules.Local.ToObservableCollection());
         }
         #endregion
 
         #region Tables de la BDD (sous forme de ReadOnlyObservableCollection)
-        private ReadOnlyObservableCollection<Owner> _Owners;
-        private ReadOnlyObservableCollection<Customer> _Customers;
-        private ReadOnlyObservableCollection<PhoneNumber> _PhoneNumbers;
-        private ReadOnlyObservableCollection<Country> _Countries;
-        private ReadOnlyObservableCollection<Town> _Towns;
-        private ReadOnlyObservableCollection<Advert> _Adverts;
-        private ReadOnlyObservableCollection<Book> _Books;
-        private ReadOnlyObservableCollection<Picture> _Pictures;
-        private ReadOnlyObservableCollection<Category> _Categories;
-        private ReadOnlyObservableCollection<Schedule> _Schedules;
-        public ReadOnlyObservableCollection<Owner> Owners => _Owners;
-        public ReadOnlyObservableCollection<Customer> Customers => _Customers;
-        public ReadOnlyObservableCollection<PhoneNumber> PhoneNumbers => _PhoneNumbers;
-        public ReadOnlyObservableCollection<Country> Countries => _Countries;
-        public ReadOnlyObservableCollection<Town> Towns => _Towns;
-        public ReadOnlyObservableCollection<Advert> Adverts => _Adverts;
-        public ReadOnlyObservableCollection<Book> Books => _Books;
-        public ReadOnlyObservableCollection<Picture> Pictures => _Pictures;
-        public ReadOnlyObservableCollection<Category> Categories =>_Categories;
-        public ReadOnlyObservableCollection<Schedule> Schedules => _Schedules;
+        private ReadOnlyObservableCollection<Owner> _owners;
+        private ReadOnlyObservableCollection<Customer> _customers;
+        private ReadOnlyObservableCollection<PhoneNumber> _phoneNumbers;
+        private ReadOnlyObservableCollection<Country> _countries;
+        private ReadOnlyObservableCollection<Town> _towns;
+        private ReadOnlyObservableCollection<Advert> _adverts;
+        private ReadOnlyObservableCollection<Book> _books;
+        private ReadOnlyObservableCollection<Picture> _pictures;
+        private ReadOnlyObservableCollection<Category> _categories;
+        private ReadOnlyObservableCollection<Schedule> _schedules;
+        public ReadOnlyObservableCollection<Owner> owners => _owners;
+        public ReadOnlyObservableCollection<Customer> customers => _customers;
+        public ReadOnlyObservableCollection<PhoneNumber> phoneNumbers => _phoneNumbers;
+        public ReadOnlyObservableCollection<Country> countries => _countries;
+        public ReadOnlyObservableCollection<Town> towns => _towns;
+        public ReadOnlyObservableCollection<Advert> adverts => _adverts;
+        public ReadOnlyObservableCollection<Book> books => _books;
+        public ReadOnlyObservableCollection<Picture> pictures => _pictures;
+        public ReadOnlyObservableCollection<Category> categories =>_categories;
+        public ReadOnlyObservableCollection<Schedule> schedules => _schedules;
         #endregion
 
         #region Méthodes permettant d'ajouter/d'enlever des données dans les tables de la BDD

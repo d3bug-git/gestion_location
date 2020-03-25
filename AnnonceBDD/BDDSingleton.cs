@@ -58,6 +58,26 @@ namespace AnnonceBDD
         #endregion
 
         #region Méthodes permettant d'ajouter/d'enlever des données dans les tables de la BDD
+        public Owner AddOwner(string aFirstName, string aLastName, string aeMail, string aPassword, bool aSex, string aAvatar, string aStreet, string aStreetNumber, Town aTown)
+        {
+            return BDD?.AddOwner(aFirstName, aLastName, aeMail, aPassword, aSex, aAvatar, aStreet, aStreetNumber, aTown);
+        }
+        public Customer AddCustomer(string aFirstName, string aLastName, string aeMail, string aPassword, bool aSex, string aAvatar, string aStreet, string aStreetNumber, Town aTown)
+        {
+            return BDD?.AddCustomer(aFirstName, aLastName, aeMail, aPassword, aSex, aAvatar, aStreet, aStreetNumber, aTown);
+        }
+        public PhoneNumber AddPhoneNumber(string aTel, Customer aCustomer, Owner aOwner, Country aCountry)
+        {
+            return BDD?.AddPhoneNumber(aTel, aCustomer, aOwner, aCountry);
+        }
+        public Country AddCountry(string aNameCountry, string aPrefix, string aIndicatif)
+        {
+            return BDD?.AddCountry(aNameCountry, aPrefix, aIndicatif);
+        }
+        public Town AddTown(string aNameTown, string aPostalCode, Country aCountry)
+        {
+            return BDD?.AddTown(aNameTown, aPostalCode, aCountry);
+        }
         public Advert AddAdvert(string aTitle, string aDescription, int aNbRooms, int aNbBeds, int aNbBathrooms, string aStreetNumber, string aStreet, Owner aOwner, Category aCategory)
         {
             return BDD?.AddAdvert(aTitle, aDescription, aNbRooms, aNbBeds, aNbBathrooms, aStreetNumber, aStreet, aOwner, aCategory);
@@ -78,7 +98,26 @@ namespace AnnonceBDD
         {
             return BDD?.AddSchedule( aPrice,  aStartDate,  aEndDate,  aAdvert);
         }
-
+        public void RemoveOwner(Owner aOwner)
+        {
+            BDD?.RemoveOwner(aOwner);
+        }
+        public void RemoveCustomer(Customer aCustomer)
+        {
+            BDD?.RemoveCustomer(aCustomer);
+        }
+        public void RemovePhoneNumber(PhoneNumber aPhoneNumber)
+        {
+            BDD?.RemovePhoneNumber(aPhoneNumber);
+        }
+        public void RemoveCountry(Country aCountry)
+        {
+            BDD?.RemoveCountry(aCountry);
+        }
+        public void RemoveTown(Town aTown)
+        {
+            BDD?.RemoveTown(aTown);
+        }
         public void RemoveAdvert(Advert aAdvert)
         {
             BDD?.RemoveAdvert( aAdvert);

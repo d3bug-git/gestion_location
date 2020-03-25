@@ -140,7 +140,7 @@ namespace AnnonceBDD
             //Suppression du pays
             Countries.Local.Remove(aCountry);
         }
-        internal void RemoveCountry(Town aTown)
+        internal void RemoveTown(Town aTown)
         {
             //Suppression de la ville
             Towns.Local.Remove(aTown);

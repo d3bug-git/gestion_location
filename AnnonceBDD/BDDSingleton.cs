@@ -24,7 +24,7 @@ namespace AnnonceBDD
             BDD?.Adverts.Load();
             _adverts = new ReadOnlyObservableCollection<Advert>(BDD?.Adverts.Local.ToObservableCollection());
             BDD?.Books.Load();
-            _Books = new ReadOnlyObservableCollection<Book>(BDD?.Books.Local.ToObservableCollection());
+            _books = new ReadOnlyObservableCollection<Book>(BDD?.Books.Local.ToObservableCollection());
             BDD?.Pictures.Load();
             _pictures = new ReadOnlyObservableCollection<Picture>(BDD?.Pictures.Local.ToObservableCollection());
             BDD?.Categories.Load();

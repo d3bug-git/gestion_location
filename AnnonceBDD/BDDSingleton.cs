@@ -25,8 +25,8 @@ namespace AnnonceBDD
             _owners = new ReadOnlyObservableCollection<Owner>(BDD?.Owners.Local.ToObservableCollection());
             BDD?.Customers.Load();
             _customers = new ReadOnlyObservableCollection<Customer>(BDD?.Customers.Local.ToObservableCollection());
-            BDD?.PhoneNumbers.Load();
-            _phoneNumbers = new ReadOnlyObservableCollection<PhoneNumber>(BDD?.PhoneNumbers.Local.ToObservableCollection());
+            BDD?.PhoneNumberCustomers.Load();
+            _phoneNumbers = new ReadOnlyObservableCollection<PhoneNumberCustomer>(BDD?.PhoneNumberCustomers.Local.ToObservableCollection());
             BDD?.Countries.Load();
             _countries = new ReadOnlyObservableCollection<Country>(BDD?.Countries.Local.ToObservableCollection());
             BDD?.Towns.Load();
@@ -47,7 +47,7 @@ namespace AnnonceBDD
         #region Tables de la BDD (sous forme de ReadOnlyObservableCollection)
         private ReadOnlyObservableCollection<Owner> _owners;
         private ReadOnlyObservableCollection<Customer> _customers;
-        private ReadOnlyObservableCollection<PhoneNumber> _phoneNumbers;
+        private ReadOnlyObservableCollection<PhoneNumberCustomer> _phoneNumbers;
         private ReadOnlyObservableCollection<Country> _countries;
         private ReadOnlyObservableCollection<Town> _towns;
         private ReadOnlyObservableCollection<Advert> _adverts;
@@ -57,7 +57,7 @@ namespace AnnonceBDD
         private ReadOnlyObservableCollection<Schedule> _schedules;
         public ReadOnlyObservableCollection<Owner> owners => _owners;
         public ReadOnlyObservableCollection<Customer> customers => _customers;
-        public ReadOnlyObservableCollection<PhoneNumber> phoneNumbers => _phoneNumbers;
+        public ReadOnlyObservableCollection<PhoneNumberCustomer> phoneNumbers => _phoneNumbers;
         public ReadOnlyObservableCollection<Country> countries => _countries;
         public ReadOnlyObservableCollection<Town> towns => _towns;
         public ReadOnlyObservableCollection<Advert> adverts => _adverts;
@@ -76,9 +76,13 @@ namespace AnnonceBDD
         {
             return BDD?.AddCustomer(aFirstName, aLastName, aeMail, aPassword, aSex, aAvatar, aStreet, aStreetNumber, aTown);
         }
-        public PhoneNumber AddPhoneNumber(string aTel, Customer aCustomer, Owner aOwner, Country aCountry)
+        public PhoneNumberCustomer AddPhoneNumberCustomer(string aTel, Customer aCustomer, Country aCountry)
         {
-            return BDD?.AddPhoneNumber(aTel, aCustomer, aOwner, aCountry);
+            return BDD?.AddPhoneNumberCustomer(aTel, aCustomer, aCountry);
+        }
+        public PhoneNumberOwner AddPhoneNumberOwner(string aTel, Owner aOwner, Country aCountry)
+        {
+            return BDD?.AddPhoneNumberOwner(aTel, aOwner, aCountry);
         }
         public Country AddCountry(string aNameCountry, string aPrefix, string aIndicatif)
         {
@@ -88,9 +92,9 @@ namespace AnnonceBDD
         {
             return BDD?.AddTown(aNameTown, aPostalCode, aCountry);
         }
-        public Advert AddAdvert(string aTitle, string aDescription, int aNbRooms, int aNbBeds, int aNbBathrooms, string aStreetNumber, string aStreet, Owner aOwner, Category aCategory)
+        public Advert AddAdvert(string aTitle, string aDescription, int aNbRooms, int aNbBeds, int aNbBathrooms, string aStreetNumber, string aStreet, Owner aOwner, Category aCategory,Town aTown)
         {
-            return BDD?.AddAdvert(aTitle, aDescription, aNbRooms, aNbBeds, aNbBathrooms, aStreetNumber, aStreet, aOwner, aCategory);
+            return BDD?.AddAdvert(aTitle, aDescription, aNbRooms, aNbBeds, aNbBathrooms, aStreetNumber, aStreet, aOwner, aCategory,aTown);
         }
         public Book AddBook(Advert aAdvert, Customer aCustomer, DateTime aDateArrival, DateTime aDateDeparture, int aNbAdults, int aNbChildren, string aMessage)
         {
@@ -116,9 +120,13 @@ namespace AnnonceBDD
         {
             BDD?.RemoveCustomer(aCustomer);
         }
-        public void RemovePhoneNumber(PhoneNumber aPhoneNumber)
+        public void RemovePhoneNumberCustomer(PhoneNumberCustomer aPhoneNumber)
         {
-            BDD?.RemovePhoneNumber(aPhoneNumber);
+            BDD?.RemovePhoneNumberCustomer(aPhoneNumber);
+        }
+        public void RemovePhoneNumberOwner(PhoneNumberOwner aPhoneNumber)
+        {
+            BDD?.RemovePhoneNumberOwner(aPhoneNumber);
         }
         public void RemoveCountry(Country aCountry)
         {

@@ -13,7 +13,7 @@ namespace AnnonceBDD
         public string Prefix { get; set; }
         public string Indicatif { get; set; }
         public ObservableCollection<Town> Towns { get; set; } = new ObservableCollection<Town>();
-        public ObservableCollection<PhoneNumber> PhoneNumbers { get; set; } = new ObservableCollection<PhoneNumber>();
+        public ObservableCollection<PhoneNumberCustomer> PhoneNumbers { get; set; } = new ObservableCollection<PhoneNumberCustomer>();
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

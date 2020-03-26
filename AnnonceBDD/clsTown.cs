@@ -19,6 +19,7 @@ namespace AnnonceBDD
                 {
                     throw new ArgumentException($"{nameof(NameTown)} : La ville doit être nommée.");
                 }
+                cNameTown = value;
             }
         }
         public string cPostalCode;
@@ -31,6 +32,7 @@ namespace AnnonceBDD
                 {
                     throw new ArgumentException($"{nameof(PostalCode)} : La ville doit avoir un code postal.");
                 }
+                cPostalCode = value;
             }
         }
         public Country Country;

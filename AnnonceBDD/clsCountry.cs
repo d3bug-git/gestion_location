@@ -19,6 +19,7 @@ namespace AnnonceBDD
                 {
                     throw new ArgumentException($"{nameof(NameCountry)} : Le pays doit être nommé.");
                 }
+                cNameCountry = value;
             }
         }
 

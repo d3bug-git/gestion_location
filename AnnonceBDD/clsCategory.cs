@@ -31,6 +31,7 @@ namespace AnnonceBDD
                 {
                     throw new ArgumentNullException($"{nameof(Description)} : La catégorie doit avoir une description (valeur NULL ou chaine vide).");
                 }
+                cDescription = value;
             }
         }
         private string cAvatar;
@@ -39,8 +40,12 @@ namespace AnnonceBDD
             get => cAvatar;
             set
             {
-                if (value == null || value == "") { throw new ArgumentNullException($"{nameof(Avatar)} : Une image doit être assignée à la catégorie (valeur NULL ou chaine vide)."); }
-            }
+                if (value == null || value == "") 
+                { 
+                    throw new ArgumentNullException($"{nameof(Avatar)} : Une image doit être assignée à la catégorie (valeur NULL ou chaine vide).");
+                }
+                cAvatar = value;
+            }            
         }                      
         public ObservableCollection<Advert> Adverts { get; set; } = new ObservableCollection<Advert>();
 

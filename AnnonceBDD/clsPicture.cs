@@ -17,6 +17,7 @@ namespace AnnonceBDD
                 {
                     throw new ArgumentNullException($"{nameof(Path)} : Veuillez spécifiez une image (valeur NULL ou chaine vide).");
                 }
+                cPath = value;
             }
         }
         public int AdvertID { get; set; }

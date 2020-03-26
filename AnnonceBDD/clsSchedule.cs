@@ -18,8 +18,8 @@ namespace AnnonceBDD
                 if (value <= 0)
                 {
                     throw new ArgumentNullException($"{nameof(Price)} : Le prix doit être suppérieur à 0.");
-
                 }
+                cPrix = value;
             }
         }
         private DateTime cStartDate;
@@ -36,7 +36,7 @@ namespace AnnonceBDD
                 { 
                     throw new ArgumentException($"{nameof(StartDate)} : La date de début doit être égale ou postérieure à la date du jour."); 
                 }
-
+                cStartDate = value;
             }
         }
         private DateTime cEndDate;
@@ -53,7 +53,7 @@ namespace AnnonceBDD
                 { 
                     throw new ArgumentException($"{nameof(EndDate)} : La date de fin doit être égale ou postérieure à la date du jour."); 
                 }
-
+                cEndDate = value;
             }
         }
         public int AdvertID { get; set; }

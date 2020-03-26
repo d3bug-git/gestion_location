@@ -8,7 +8,8 @@ namespace AnnonceBDD
 {
     public class Advert : INotifyPropertyChanged
     {
-        private const int MIN_ELEMENT = 1;
+        public readonly int MIN_ELEMENT  = 1;
+        public readonly int MAX_ELEMENT  = 7;
 
         public int ID { get; set; }
 

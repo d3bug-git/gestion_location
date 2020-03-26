@@ -33,8 +33,13 @@ namespace AnnonceBDD
             #endregion
 
             #region Données présentes par défaut dans la BDD
-            modelBuilder.Entity<Category>().HasData(FakeData.Category(5));
-            modelBuilder.Entity<Country>().HasData(FakeData.Country(5));
+            modelBuilder.Entity<Category>().HasData(FakeData.Category(3));
+            modelBuilder.Entity<Country>().HasData(FakeData.Country(3));
+            modelBuilder.Entity<Picture>().HasData( FakeData.Picture(1,3).Concat(FakeData.Picture(2, 3)) );
+            modelBuilder.Entity<Advert>().HasData(FakeData.Advert(1, 1,1,3).Concat(FakeData.Advert(2, 1, 1,5)) );
+            modelBuilder.Entity<Town>().HasData(FakeData.Town(1, 3).Concat(FakeData.Town(2, 3)));
+            modelBuilder.Entity<PhoneNumberCustomer>().HasData(FakeData.PhoneNumberCustomer(1, 1).Concat(FakeData.PhoneNumberCustomer(2, 2)));
+            modelBuilder.Entity<PhoneNumberOwner>().HasData(FakeData.PhoneNumberOwner(1, 1).Concat(FakeData.PhoneNumberOwner(2, 2)));
             #endregion
         }
         #endregion

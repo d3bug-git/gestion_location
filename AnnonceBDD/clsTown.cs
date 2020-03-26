@@ -9,9 +9,30 @@ namespace AnnonceBDD
     public class Town : INotifyPropertyChanged
     {
         public int ID { get; set; }
-        public string NameTown { get; set; }
-        public string PostalCode { get; set; }
-
+        public string cNameTown;
+        public string NameTown
+        {
+            get => cNameTown;
+            set
+            {
+                if (value == null || value == "")
+                {
+                    throw new ArgumentException($"{nameof(NameTown)} : La ville doit être nommée.");
+                }
+            }
+        }
+        public string cPostalCode;
+        public string PostalCode
+        {
+            get => cPostalCode;
+            set
+            {
+                if (value == null || value == "")
+                {
+                    throw new ArgumentException($"{nameof(PostalCode)} : La ville doit avoir un code postal.");
+                }
+            }
+        }
         public Country Country;
         public int CountryID;
 

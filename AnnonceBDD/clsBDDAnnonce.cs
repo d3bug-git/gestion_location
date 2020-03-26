@@ -104,6 +104,8 @@ namespace AnnonceBDD
         }
         internal Town AddTown(string aNameTown, string aPostalCode, Country aCountry)
         {
+            if (aCountry == null) { throw new ArgumentNullException($"{nameof(AddTown)} : La ville doit être associée à un pays (valeur NULL)."); }
+
             //Ajout de la nouvelle ville
             Town lTown = new Town() { NameTown = aNameTown, PostalCode = aPostalCode, Country = aCountry };
             Towns.Local.Add(lTown);

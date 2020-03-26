@@ -9,7 +9,19 @@ namespace AnnonceBDD
     public class Country : INotifyPropertyChanged
     {
         public int ID { get; set; }
-        public string NameCountry { get; set; }
+        public string cNameCountry;
+        public string NameCountry
+        {
+            get => cNameCountry;
+            set
+            {
+                if (value == null || value == "")
+                {
+                    throw new ArgumentException($"{nameof(NameCountry)} : Le pays doit être nommé.");
+                }
+            }
+        }
+
         public string Prefix { get; set; }
         public string Indicatif { get; set; }
         public ObservableCollection<Town> Towns { get; set; } = new ObservableCollection<Town>();

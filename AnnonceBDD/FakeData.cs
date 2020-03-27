@@ -15,26 +15,26 @@ namespace AnnonceBDD
         private const int WIDTH_PICTURE = 500;
         private const int HEIGHT_PICTURE = 500;
 
-        private int CategoryFakeID=0;
+        private int CategoryFakeID=1;
         private string[] CategoryTitle = new string[] { "Studios", "Appartements", "Maisons", "Villas", "Gîtes" };
         private  Faker<Category> CategoryFake;
 
-        private int CountryFakeID = 0;
+        private int CountryFakeID = 1;
         private Faker<Country> CountryFake;
 
-        private int PictureFakeID = 0;
+        private int PictureFakeID = 1;
         private Faker<Picture> PictureFake;
 
-        private int AdvertFakeID = 0;
+        private int AdvertFakeID = 1;
         private Faker<Advert> AdvertFake;
 
-        private int TownFakeID = 0;
+        private int TownFakeID = 1;
         private Faker<Town> TownFake;
 
-        private int PhoneNumberCustomerFakeID = 0;
+        private int PhoneNumberCustomerFakeID = 1;
         private Faker<PhoneNumberCustomer> PhoneNumberCustomerFake;
 
-        private int PhoneNumberOwnerFakeID = 0;
+        private int PhoneNumberOwnerFakeID = 1;
         private Faker<PhoneNumberOwner> PhoneNumberOwnerFake;
 
         public FakeData(string Locale="fr")
@@ -90,7 +90,7 @@ namespace AnnonceBDD
         }
         public Picture[] Picture(int advertId,int count = 1)
         {
-            PictureFake.RuleFor(c => c.ID, f => advertId);
+            PictureFake.RuleFor(c => c.AdvertID, f => advertId);
             return PictureFake.Generate(count).ToArray();
         }
         public Advert[] Advert(int OwnerID,int CategoryID,int TownID,  int count = 1)

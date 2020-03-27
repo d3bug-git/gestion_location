@@ -40,6 +40,10 @@ namespace AnnonceBDD
             modelBuilder.Entity<Town>().HasData(FakeData.Town(1, 3).Concat(FakeData.Town(2, 3)));
             modelBuilder.Entity<PhoneNumberCustomer>().HasData(FakeData.PhoneNumberCustomer(1, 1).Concat(FakeData.PhoneNumberCustomer(2, 2)));
             modelBuilder.Entity<PhoneNumberOwner>().HasData(FakeData.PhoneNumberOwner(1, 1).Concat(FakeData.PhoneNumberOwner(2, 2)));
+            modelBuilder.Entity<Owner>().HasData(FakeData.Owner(1, 3).Concat(FakeData.Owner(2, 3)));
+            modelBuilder.Entity<Customer>().HasData(FakeData.Customer(1, 3).Concat(FakeData.Customer(2, 3)));
+            modelBuilder.Entity<Schedule>().HasData(FakeData.Schedule(1, 3).Concat(FakeData.Schedule(2, 3)));
+            modelBuilder.Entity<Book>().HasData(FakeData.Book(1,1,1).Concat(FakeData.Book(2,1, 1)).Concat(FakeData.Book(3, 1, 1)));
             #endregion
         }
         #endregion

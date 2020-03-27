@@ -15,6 +15,9 @@ namespace AnnonceBDD
         private const int WIDTH_PICTURE = 500;
         private const int HEIGHT_PICTURE = 500;
 
+        private const string MOT_DE_PASSE = "Soleil";
+        private Security Security = new Security();
+
         private int CategoryFakeID=1;
         private string[] CategoryTitle = new string[] { "Studios", "Appartements", "Maisons", "Villas", "Gîtes" };
         private  Faker<Category> CategoryFake;
@@ -36,6 +39,18 @@ namespace AnnonceBDD
 
         private int PhoneNumberOwnerFakeID = 1;
         private Faker<PhoneNumberOwner> PhoneNumberOwnerFake;
+
+        private int OwnerFakeID = 1;
+        private Faker<Owner> OwnerFake;
+
+        private int CustomerFakeID = 1;
+        private Faker<Customer> CustomerFake;
+
+        private int ScheduleFakeID = 1;
+        private Faker<Schedule> ScheduleFake;
+
+        private int BookFakeID = 1;
+        private Faker<Book> BookFake;
 
         public FakeData(string Locale="fr")
         {
@@ -78,6 +93,41 @@ namespace AnnonceBDD
             PhoneNumberOwnerFake = new Faker<PhoneNumberOwner>(Locale)
                 .RuleFor(c => c.ID, f => PhoneNumberOwnerFakeID++)
                 .RuleFor(c => c.Tel, f => f.Phone.PhoneNumber());
+
+            OwnerFake = new Faker<Owner>(Locale)
+                .RuleFor(c => c.ID, f => OwnerFakeID++)
+                .RuleFor(c => c.Password, f => Security.GenerateHash(MOT_DE_PASSE))
+                .RuleFor(c => c.FirstName, (f) => f.Name.FirstName())
+                .RuleFor(c => c.LastName, (f) => f.Name.LastName())
+                .RuleFor(c => c.Email, (f) => f.Internet.ExampleEmail())
+                .RuleFor(c => c.Sex, (f) => f.Random.Bool())
+                .RuleFor(c => c.Avatar, f => f.Image.DataUri(WIDTH_AVATAR, HEIGHT_AVATAR))
+                .RuleFor(c => c.Street, f => f.Address.StreetName())
+                .RuleFor(c => c.StreetNumber, f => f.Address.BuildingNumber());
+
+            CustomerFake = new Faker<Customer>(Locale)
+                .RuleFor(c => c.ID, f => OwnerFakeID++)
+                .RuleFor(c => c.Password, f => Security.GenerateHash(MOT_DE_PASSE))
+                .RuleFor(c => c.FirstName, (f) => f.Name.FirstName())
+                .RuleFor(c => c.LastName, (f) => f.Name.LastName())
+                .RuleFor(c => c.Email, (f) => f.Internet.ExampleEmail())
+                .RuleFor(c => c.Sex, (f) => f.Random.Bool())
+                .RuleFor(c => c.Avatar, f => f.Image.DataUri(WIDTH_AVATAR, HEIGHT_AVATAR))
+                .RuleFor(c => c.Street, f => f.Address.StreetName())
+                .RuleFor(c => c.StreetNumber, f => f.Address.BuildingNumber());
+
+            ScheduleFake = new Faker<Schedule>(Locale)
+                .RuleFor(c => c.ID, f => ScheduleFakeID++)
+                .RuleFor(c => c.Price, f => f.Random.Float())
+                .RuleFor(c => c.StartDate, f => DateTime.Now)
+                .RuleFor(c => c.EndDate, f => f.Date.Future(2, DateTime.Now));
+
+            BookFake = new Faker<Book>(Locale)
+                .RuleFor(c => c.DateArrival, f => DateTime.Now)
+                .RuleFor(c => c.DateDeparture, f => f.Date.Soon(5, DateTime.Now))
+                .RuleFor(c => c.NbAdults, (f, c) => f.Random.Int(c.MIN_ADULT, c.MAX_PERSONS))
+                .RuleFor(c => c.NbChildren, (f, c) => f.Random.Int(c.MIN_CHILD, c.MAX_PERSONS))
+                .RuleFor(c => c.Message, f => f.Lorem.Paragraphs());            
         }
 
         public Category[] Category(int count=1)
@@ -118,6 +168,27 @@ namespace AnnonceBDD
             PhoneNumberOwnerFake.RuleFor(c => c.OwnerID, f => OwnerID);
             PhoneNumberOwnerFake.RuleFor(c => c.CountryID, f => CountryID);
             return PhoneNumberOwnerFake.Generate(count).ToArray();
+        }
+        public Owner[] Owner(int TownID, int count = 1)
+        {
+            OwnerFake.RuleFor(c => c.TownID, f => TownID);
+            return OwnerFake.Generate(count).ToArray();
+        }
+        public Customer[] Customer(int TownID, int count = 1)
+        {
+            CustomerFake.RuleFor(c => c.TownID, f => TownID);
+            return CustomerFake.Generate(count).ToArray();
+        }
+        public Schedule[] Schedule(int AdvertID, int count = 1)
+        {
+            ScheduleFake.RuleFor(c => c.AdvertID, f => AdvertID);
+            return ScheduleFake.Generate(count).ToArray();
+        }
+        public Book[] Book(int AdvertID, int CustomerID, int count = 1)
+        {
+            BookFake.RuleFor(c => c.AdvertID, f => AdvertID);
+            BookFake.RuleFor(c => c.CustomerID, f => CustomerID);
+            return BookFake.Generate(count).ToArray();
         }
     }
 }

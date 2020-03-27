@@ -9,7 +9,7 @@ namespace AnnonceConsole
         {
             Console.WriteLine("Hello World !");
             BDDSingleton BDD = BDDSingleton.Instance;
-            Console.WriteLine("BDD are created !!!");
+            Console.WriteLine("BDD are created YOUPI!!!");
             Console.ReadKey();
         }
     }

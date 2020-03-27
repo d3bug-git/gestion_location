@@ -19,6 +19,7 @@ namespace AnnonceBDD
                 {
                     throw new ArgumentNullException($"{nameof(Title)} : La catégorie doit avoir un titre (valeur NULL ou chaine vide).");
                 }
+                cTitle = value;
             }
         }
         private string cDescription;

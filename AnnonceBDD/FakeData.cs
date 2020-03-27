@@ -50,7 +50,7 @@ namespace AnnonceBDD
                 .RuleFor(c => c.ID, f => CountryFakeID++)
                 .RuleFor(c => c.NameCountry, f => f.Address.Country())
                 .RuleFor(c => c.Prefix, f => f.Address.CountryCode())
-                .RuleFor(c => c.Indicatif, f => f.Address.CountryCode());
+                .RuleFor(c => c.Indicatif, f =>"+"+f.Random.Replace("##"));
 
             PictureFake = new Faker<Picture>(Locale)
                 .RuleFor(c => c.ID, f => PictureFakeID++)

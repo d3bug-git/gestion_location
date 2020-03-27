@@ -9,7 +9,7 @@ namespace AnnonceBDD
     public class Town : INotifyPropertyChanged
     {
         public int ID { get; set; }
-        public string cNameTown;
+        private string cNameTown;
         public string NameTown
         {
             get => cNameTown;
@@ -35,8 +35,8 @@ namespace AnnonceBDD
                 cPostalCode = value;
             }
         }
-        public Country Country;
-        public int CountryID;
+        public Country Country { get; set; }
+        public int CountryID { get; set; }
 
         public ObservableCollection<Advert> Adverts { get; set; } = new ObservableCollection<Advert>();
         public ObservableCollection<Owner> Owners { get; set; } = new ObservableCollection<Owner>();

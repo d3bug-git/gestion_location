@@ -123,7 +123,7 @@ namespace AnnonceBDD
                 _Town = value;
             }
         }
-        public int TownID;
+        public int TownID { get; set; }
 
         public ObservableCollection<PhoneNumberCustomer> PhoneNumbers { get; set; } = new ObservableCollection<PhoneNumberCustomer>();
         public string CompleteName => $"{FirstName} {LastName}";

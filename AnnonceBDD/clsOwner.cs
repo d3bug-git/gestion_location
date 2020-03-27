@@ -99,9 +99,9 @@ namespace AnnonceBDD
                 _Town = value;
             }
         }
-        public int TownID;
+        public int TownID { get; set; }
 
-        public ObservableCollection<PhoneNumberCustomer> PhoneNumbers { get; set; } = new ObservableCollection<PhoneNumberCustomer>();
+        public ObservableCollection<PhoneNumberOwner> PhoneNumbers { get; set; } = new ObservableCollection<PhoneNumberOwner>();
         public string CompleteName => $"{FirstName} {LastName}";
         public string Resume => $"{CompleteName}";
 

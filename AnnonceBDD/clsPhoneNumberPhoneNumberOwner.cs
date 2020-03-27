@@ -21,7 +21,7 @@ namespace AnnonceBDD
             }
         }
 
-        private Owner _Owner;
+        private Owner _Owner { get; set; }
         public Owner Owner
         {
             get => _Owner; set
@@ -33,9 +33,9 @@ namespace AnnonceBDD
                 _Owner = value;
             }
         }
-        public int OwnerID;
+        public int OwnerID { get; set; }
 
-        private Country _Country;
+        private Country _Country { get; set; }
         public Country Country
         {
             get => _Country; set
@@ -47,7 +47,7 @@ namespace AnnonceBDD
                 _Country = value;
             }
         }
-        public int CountryID;
+        public int CountryID { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

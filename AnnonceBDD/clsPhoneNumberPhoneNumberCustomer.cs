@@ -33,7 +33,7 @@ namespace AnnonceBDD
                 _Customer = value;
             }
         }
-        public int CustomerID;
+        public int CustomerID { get; set; }
 
         private Country _Country;
         public Country Country
@@ -47,7 +47,7 @@ namespace AnnonceBDD
                 _Country = value;
             }
         }
-        public int CountryID;
+        public int CountryID { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

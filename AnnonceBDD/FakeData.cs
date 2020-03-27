@@ -49,7 +49,6 @@ namespace AnnonceBDD
         private int ScheduleFakeID = 1;
         private Faker<Schedule> ScheduleFake;
 
-        private int BookFakeID = 1;
         private Faker<Book> BookFake;
 
         public FakeData(string Locale="fr")
@@ -106,7 +105,7 @@ namespace AnnonceBDD
                 .RuleFor(c => c.StreetNumber, f => f.Address.BuildingNumber());
 
             CustomerFake = new Faker<Customer>(Locale)
-                .RuleFor(c => c.ID, f => OwnerFakeID++)
+                .RuleFor(c => c.ID, f => CustomerFakeID++)
                 .RuleFor(c => c.Password, f => Security.GenerateHash(MOT_DE_PASSE))
                 .RuleFor(c => c.FirstName, (f) => f.Name.FirstName())
                 .RuleFor(c => c.LastName, (f) => f.Name.LastName())
@@ -118,13 +117,13 @@ namespace AnnonceBDD
 
             ScheduleFake = new Faker<Schedule>(Locale)
                 .RuleFor(c => c.ID, f => ScheduleFakeID++)
-                .RuleFor(c => c.Price, f => f.Random.Float())
-                .RuleFor(c => c.StartDate, f => DateTime.Now)
+                .RuleFor(c => c.Price, f => f.Random.Float(50,500))
+                .RuleFor(c => c.StartDate, f => f.Date.Soon(2,DateTime.Now))
                 .RuleFor(c => c.EndDate, f => f.Date.Future(2, DateTime.Now));
 
             BookFake = new Faker<Book>(Locale)
-                .RuleFor(c => c.DateArrival, f => DateTime.Now)
-                .RuleFor(c => c.DateDeparture, f => f.Date.Soon(5, DateTime.Now))
+                .RuleFor(c => c.DateArrival, f => f.Date.Soon(2, DateTime.Now))
+                .RuleFor(c => c.DateDeparture, f => f.Date.Soon(7, DateTime.Now))
                 .RuleFor(c => c.NbAdults, (f, c) => f.Random.Int(c.MIN_ADULT, c.MAX_PERSONS))
                 .RuleFor(c => c.NbChildren, (f, c) => f.Random.Int(c.MIN_CHILD, c.MAX_PERSONS))
                 .RuleFor(c => c.Message, f => f.Lorem.Paragraphs());            

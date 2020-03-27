@@ -10,7 +10,7 @@ namespace AnnonceBDD
     {
         public readonly int MIN_ADULT = 1;
         public readonly int MIN_CHILD = 0;
-        public readonly int MAX_PERSONS = 20;
+        public readonly int MAX_PERSONS = 7;
         public int AdvertID { get; set; }
         public Advert Advert { get; set; }
 

@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnnonceBDD", "AnnonceBDD.cs
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnnonceConsole", "..\AnnonceConsole\AnnonceConsole.csproj", "{226C3CB0-81B3-405D-88E9-346622224C6D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnnonceWPF", "..\AnnonceWPF\AnnonceWPF.csproj", "{EB441950-718E-43DD-A902-330DCE67459F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{226C3CB0-81B3-405D-88E9-346622224C6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{226C3CB0-81B3-405D-88E9-346622224C6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{226C3CB0-81B3-405D-88E9-346622224C6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB441950-718E-43DD-A902-330DCE67459F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB441950-718E-43DD-A902-330DCE67459F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB441950-718E-43DD-A902-330DCE67459F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB441950-718E-43DD-A902-330DCE67459F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

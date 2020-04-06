@@ -13,13 +13,37 @@
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
             <TextBlock Text="Gestion Annonce"/>
-            <Button Content="Fichier" />
-            <Button>
-                <StackPanel Orientation="Horizontal">
-                    <iconPacks:PackIconEvaIcons Kind="ArrowUp" />
-                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Affichache" />
-                </StackPanel>
-            </Button>
+            <Menu IsMainMenu="True" >
+                <MenuItem Header="_Fichier">
+                    <MenuItem Header="Sauvegarder" Click="SauvegarderModifications">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="ContentSave" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Quitter" Click="Quitter">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="ExitToApp" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="_Affichache">
+                    <MenuItem Header="Annonce">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Home" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="propriétaires">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Key" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Clients">
+                        <MenuItem.Icon>
+                            <iconPacks:PackIconMaterial Kind="AccountGroup" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
     <Controls:MetroWindow.RightWindowCommands>
@@ -28,6 +52,6 @@
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
     <Grid>
-        
+        <Frame Name="Cadre" Grid.Row="1" Navigated="NavServiceOnNavigated" NavigationUIVisibility="Hidden" />
     </Grid>
 </Controls:MetroWindow>

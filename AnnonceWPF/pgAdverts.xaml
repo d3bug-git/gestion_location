@@ -21,12 +21,13 @@
             <ListView Name="lvAdverts" ItemsSource="{Binding}" SelectionMode="Single" SelectionChanged="lvAdverts_SelectionChanged">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Details" Width="500">
+                        <GridViewColumn Header="Details" Width="1024">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <Grid Margin="10">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
@@ -37,6 +38,24 @@
                                         <TextBox Grid.Column="1" Margin="0,0,0,10" Text="{Binding Title}" />
                                         <Label Grid.Row="1">Description:</Label>
                                         <TextBox Grid.Row="1" TextWrapping="Wrap" Grid.Column="1" Margin="0,0,0,10" Text="{Binding Description}" />
+                                        <StackPanel Grid.Row="1" Grid.Column="2" Margin="10,0,0,0">
+                                            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                                <Label Margin="5,0,0,0">Nombre de pièce(s):</Label>
+                                                <TextBox Margin="5,0,0,0" Text="{Binding NbRooms}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                                <Label Margin="5,0,0,0">Nombre de salle de bain(s):</Label>
+                                                <TextBox Margin="5,0,0,0" Text="{Binding NbBathrooms}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                                <Label Margin="5,0,0,0">Nombre de chambre(s):</Label>
+                                                <TextBox Margin="5,0,0,0" Text="{Binding NbBeds}" />
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="10,0,0,0">
+                                                <Label Margin="5,0,0,0">Adresse:</Label>
+                                                <TextBox Margin="5,0,0,0" Text="{Binding Street}" />
+                                            </StackPanel>
+                                        </StackPanel>
                                     </Grid>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>

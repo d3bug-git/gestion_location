@@ -37,12 +37,12 @@
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="_Affichache">
-                        <MenuItem Header="Annonce">
+                        <MenuItem Header="Annonce" Click="AfficherAnnonces">
                             <MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="Home" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="propriétaires">
+                        <MenuItem Header="Propriétaires">
                             <MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="Key" />
                             </MenuItem.Icon>
@@ -58,20 +58,23 @@
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
                 <StackPanel.Resources>
                     <Thickness x:Key="Marge" Left="5" Top="0" Right="5" Bottom="0" />
-                    
+                    <SolidColorBrush x:Key="IconColor" Color="Black" />
+                    <SolidColorBrush x:Key="ButtonColor" Color="white" />
                 </StackPanel.Resources>
-                <Button Click="Mininiser" Margin="{DynamicResource Marge}">
-                    <iconPacks:PackIconModern Kind="Minus" />
+                <Button Click="Mininiser" Background="{StaticResource ButtonColor}" Margin="{StaticResource Marge}">
+                    <iconPacks:PackIconModern Foreground="{StaticResource IconColor}" Kind="Minus" />
                 </Button>
-                <Button Click="BasculerState" Margin="{DynamicResource Marge}">
-                    <iconPacks:PackIconModern Name="WindowStateIcon" Kind="WindowMaximize" />
+                <Button Click="BasculerState" Background="{StaticResource ButtonColor}" Margin="{StaticResource Marge}">
+                    <iconPacks:PackIconModern Foreground="{StaticResource IconColor}" Name="WindowStateIcon" Kind="WindowMaximize" />
                 </Button>
-                <Button Click="Quitter" Margin="{DynamicResource Marge}">
-                    <iconPacks:PackIconJamIcons Kind="Close" />
+                <Button Click="Quitter" Background="{StaticResource ButtonColor}" Margin="{StaticResource Marge}">
+                    <iconPacks:PackIconJamIcons Foreground="{StaticResource IconColor}" Kind="Close" />
                 </Button>
                 
             </StackPanel>
         </Grid>
-        <Frame Name="Cadre" Grid.Row="1" Navigated="NavServiceOnNavigated" NavigationUIVisibility="Hidden" />
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Frame Name="Cadre" Navigated="NavServiceOnNavigated" NavigationUIVisibility="Hidden" />
+        </ScrollViewer>
     </Grid>
 </Window>

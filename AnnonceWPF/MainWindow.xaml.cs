@@ -29,10 +29,10 @@ namespace AnnonceWPF
             this.DataContext = this;
 
             //Affichage d'un cadre par défaut.
-            //Cadre.NavigationService.Navigate(new pgAdverts());
+            Cadre.NavigationService.Navigate(new pgAdverts());
         }
         #region Méthodes liées au Menu du haut de la fenêtre
-        //private void AfficherAnnonces(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgAdverts()); }
+        private void AfficherAnnonces(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgAdverts()); }
         private void SauvegarderModifications(object sender, RoutedEventArgs e)
         {
             //BDD.SauvegarderModifications();

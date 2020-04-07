@@ -35,7 +35,7 @@ namespace AnnonceWPF
         private void AfficherAnnonces(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgAdverts()); }
         private void SauvegarderModifications(object sender, RoutedEventArgs e)
         {
-            //BDD.SauvegarderModifications();
+            BDD.SauvegarderModifications();
             MessageBox.Show("Modifications sauvegardées dans la base de données.", "Sauvegarde des modifications", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         private void Quitter(object sender, RoutedEventArgs e) { this.Close(); }

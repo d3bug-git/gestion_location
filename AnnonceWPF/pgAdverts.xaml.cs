@@ -21,6 +21,7 @@ namespace AnnonceWPF
     public partial class pgAdverts : Page
     {
         BDDSingleton BDD = BDDSingleton.Instance;
+        public ReadOnlyObservableCollection<Owner> Owners => BDD.owners;
         public pgAdverts()
         {
             InitializeComponent();

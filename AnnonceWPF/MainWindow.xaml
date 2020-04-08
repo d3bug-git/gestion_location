@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="Gestion Annonce" Height="450" Width="820"
+        Title="Gestion Annonce" Height="500" Width="900"
         WindowStyle="None"
         MinHeight="300"
         MinWidth="500"
@@ -37,9 +37,14 @@
                         </MenuItem>
                     </MenuItem>
                     <MenuItem Header="_Affichache">
-                        <MenuItem Header="Annonce" Click="AfficherAnnonces">
+                        <MenuItem Header="Annonces" Click="AfficherAnnonces">
                             <MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="Home" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Catégories" Click="AfficherCategorie">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="Shape" />
                             </MenuItem.Icon>
                         </MenuItem>
                         <MenuItem Header="Propriétaires">

@@ -1,0 +1,122 @@
+﻿<Page x:Class="AnnonceWPF.pgCategories"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AnnonceWPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="pgCategories">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Name="grpCategories" Header="Liste des catégories">
+            <Grid>
+                <ListView Name="lvCategories" ItemsSource="{Binding}" SelectionMode="Single" SelectionChanged="lvCategories_SelectionChanged" Margin="1">
+                    <ListView.Resources>
+                        <ContextMenu x:Key="ctxOnItem">
+                            <MenuItem Header="Supprimer la catégorie sélectionnée" Click="SupprimerCategorie"/>
+                            <MenuItem Header="Ajouter une Catégorie" Click="AjouterCategorie"/>
+                        </ContextMenu>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="ContextMenu" Value="{StaticResource ctxOnItem}"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Ajouter une Catégorie" Click="AjouterCategorie"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                    <ListView.View>
+                        <GridView>
+
+                            <GridViewColumn Header ="Avatar">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Avatar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header ="Titre de la catégorie">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header ="Description de la catégorie">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="50"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+        
+        <GridSplitter Grid.Row="1" Height="10" Background="Red" HorizontalAlignment="Stretch" />
+        
+        <GroupBox Name="grpAnnonces" Header="Annonces de la catégorie sélectionnée" Grid.Row="2">
+            <ListView Name="lvAnnonces" ItemsSource="{Binding}" SelectionMode="Single">
+                <ListView.View>
+                    <GridView>
+                        
+                        <GridViewColumn Header ="Titre de l'annonce">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header ="Propriétaires">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox Margin="5,0,0,0"  SelectedItem="{Binding Owner, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                                  ItemsSource="{Binding Owners, RelativeSource={RelativeSource AncestorType={x:Type local:pgCategories}}}" DisplayMemberPath="FirstName"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header ="Nombre de pièce(s)">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding NbRooms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="25"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header ="Nombre de chambre(s)">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding NbBeds, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="25"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header ="Nombre de salle de bain(s)">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding NbBathrooms, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="25"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+    </Grid>
+</Page>

@@ -22,6 +22,8 @@ namespace AnnonceWPF
     {
         BDDSingleton BDD = BDDSingleton.Instance;
         public ReadOnlyObservableCollection<Owner> Owners => BDD.owners;
+        public ReadOnlyObservableCollection<Town> Towns => BDD.towns;
+        public ReadOnlyObservableCollection<Category> Categories => BDD.categories;
         public pgAdverts()
         {
             InitializeComponent();

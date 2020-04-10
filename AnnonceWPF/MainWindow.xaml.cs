@@ -39,7 +39,7 @@ namespace AnnonceWPF
             BDD.SauvegarderModifications();
             MessageBox.Show("Modifications sauvegardées dans la base de données.", "Sauvegarde des modifications", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        private void Quitter(object sender, RoutedEventArgs e) { this.Close(); }
+        private void Quitter(object sender, RoutedEventArgs e) { OnClosing(sender,new System.ComponentModel.CancelEventArgs()); this.Close(); }
         private void BasculerState(object sender, RoutedEventArgs e)
         {
             if (this.WindowState.Equals(WindowState.Maximized))
@@ -63,9 +63,9 @@ namespace AnnonceWPF
         {
             if (BDD.ModificationsEnAttente)
             {
-                if (MessageBox.Show("Il y a des modifications en attente voulez vous les sauvegarder avant de quitter ?", "Application GestionPAE", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                if (MessageBox.Show("Il y a des modifications en attente voulez vous les sauvegarder avant de quitter ?", "Application Gestion Annonce", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
-                    if (MessageBox.Show("La fermeture de l'application va entrainer la perte des modifications non sauvegardées dans la base de données. Etes-vous sûr de vouloir fermer l'application?", "Application GestionPAE", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    if (MessageBox.Show("La fermeture de l'application va entrainer la perte des modifications non sauvegardées dans la base de données. Etes-vous sûr de vouloir fermer l'application?", "Application Gestion Annonce", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                     {
                         e.Cancel = true;
                     }

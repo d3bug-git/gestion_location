@@ -38,7 +38,7 @@ namespace AnnonceWPF
         }
         private void AjouterCategorie(object sender, RoutedEventArgs e)
         {
-            Statics.TryCatch(() => { lvCategories.SelectedItem = BDD.AddCategory("Nouvelle Catégorie", "Description","Avatar"); }, nameof(AjouterCategorie));
+            Statics.TryCatch(() => { lvCategories.SelectedItem = BDD.AddCategory("Nouvelle Catégorie", "Description", "https://picsum.photos/150/150"); }, nameof(AjouterCategorie));
         }
         private void SupprimerCategorie(object sender, RoutedEventArgs e)
         {

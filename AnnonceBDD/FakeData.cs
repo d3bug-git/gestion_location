@@ -55,7 +55,7 @@ namespace AnnonceBDD
                 .RuleFor(c => c.ID, f => CategoryFakeID++)
                 .RuleFor(c => c.Title, f =>f.PickRandom(CategoryTitle))
                 .RuleFor(c=>c.Description,f=>f.Lorem.Paragraphs())
-                .RuleFor(c => c.Avatar, f => f.Image.DataUri(WIDTH_AVATAR, HEIGHT_AVATAR));
+                .RuleFor(c => c.Avatar, f => f.Image.PicsumUrl(WIDTH_AVATAR, HEIGHT_AVATAR));
 
             CountryFake = new Faker<Country>(Locale)
                 .RuleFor(c => c.ID, f => CountryFakeID++)
@@ -65,7 +65,7 @@ namespace AnnonceBDD
 
             PictureFake = new Faker<Picture>(Locale)
                 .RuleFor(c => c.ID, f => PictureFakeID++)
-                .RuleFor(c => c.Path, f => f.Image.DataUri(WIDTH_PICTURE, HEIGHT_PICTURE));
+                .RuleFor(c => c.Path, f => f.Image.PicsumUrl(WIDTH_PICTURE, HEIGHT_PICTURE));
 
             AdvertFake = new Faker<Advert>(Locale)
                 .RuleFor(c => c.ID, f => AdvertFakeID++)
@@ -97,7 +97,7 @@ namespace AnnonceBDD
                 .RuleFor(c => c.LastName, (f) => f.Name.LastName())
                 .RuleFor(c => c.Email, (f) => f.Internet.ExampleEmail())
                 .RuleFor(c => c.Sex, (f) => f.Random.Bool())
-                .RuleFor(c => c.Avatar, f => f.Image.DataUri(WIDTH_AVATAR, HEIGHT_AVATAR))
+                .RuleFor(c => c.Avatar, f => f.Image.PicsumUrl(WIDTH_AVATAR, HEIGHT_AVATAR))
                 .RuleFor(c => c.Street, f => f.Address.StreetName())
                 .RuleFor(c => c.StreetNumber, f => f.Address.BuildingNumber());
 
@@ -108,7 +108,7 @@ namespace AnnonceBDD
                 .RuleFor(c => c.LastName, (f) => f.Name.LastName())
                 .RuleFor(c => c.Email, (f) => f.Internet.ExampleEmail())
                 .RuleFor(c => c.Sex, (f) => f.Random.Bool())
-                .RuleFor(c => c.Avatar, f => f.Image.DataUri(WIDTH_AVATAR, HEIGHT_AVATAR))
+                .RuleFor(c => c.Avatar, f => f.Image.PicsumUrl(WIDTH_AVATAR, HEIGHT_AVATAR))
                 .RuleFor(c => c.Street, f => f.Address.StreetName())
                 .RuleFor(c => c.StreetNumber, f => f.Address.BuildingNumber());
 

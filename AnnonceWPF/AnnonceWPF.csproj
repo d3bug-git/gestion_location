@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="MahApps.Metro.IconPacks" Version="3.7.0" />
     <PackageReference Include="MaterialDesignThemes" Version="3.1.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AnnonceBDD\AnnonceBDD.csproj" />

@@ -1,0 +1,48 @@
+﻿<Page x:Class="AnnonceWPF.pgOwners"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:AnnonceWPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="pgOwners">
+
+    <Grid>
+        <GroupBox Name="grpOwners" Header="Propriètaires" Margin="2"  >
+            <ListView Name="lvOwners" ItemsSource="{Binding}">
+                <ListView.Resources >
+                    <ContextMenu x:Key="ctxOnItem">
+                        <MenuItem Header="Supprimer le propriètaire sélectionné" Click="RemoveOwner"/>
+                        <MenuItem Header="Ajouter un propriètaire" Click="AddOwner"/>
+                    </ContextMenu>
+                </ListView.Resources>
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Ajouter un propriètaire" Click="AddOwner"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.View>  
+                    <GridView>
+                        <GridViewColumn Header="Avatar" >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source ="{Binding Avatar}" Width=" 150" Height=" 150"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate> 
+                        </GridViewColumn>
+                        <GridViewColumn DisplayMemberBinding="{Binding FirstName}" Header="Prénom"/>
+                        <GridViewColumn DisplayMemberBinding="{Binding LastName}" Header="Nom" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Email}" Header="Email" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Sex}" Header="Genre" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Street}" Header="Rue" />
+                        <GridViewColumn DisplayMemberBinding="{Binding NumberStreet}" Header="Numéro de rue" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Town}" Header="Ville" />
+                        
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+    </Grid>
+</Page>

@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:AnnonceWPF"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Background="{DynamicResource MaterialDesignPaper}"
@@ -12,14 +13,19 @@
       Title="pgCustomers">
     <Page.Resources>
         <local:AvatarStringBase64ToImage x:Key="avatarStringBase64ToImage" />
+        <local:SexConverter x:Key="objGenreConverter" />
     </Page.Resources>
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="0.6*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Rectangle Height="250" VerticalAlignment="Top" Grid.ColumnSpan="2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Name="Degrade_mauve" Grid.ColumnSpan="2">
             <Rectangle.Fill>
                 <LinearGradientBrush EndPoint=" 0.5,1" StartPoint=" 0.5,0">
                     <GradientStop Color="#FF2281D1"/>
@@ -28,61 +34,121 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Rectangle  Height="400" Width="250"  VerticalAlignment="Bottom" Margin="0,15" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None">
+        <Rectangle Name="ListeClients" Grid.RowSpan="2" Margin="20,20" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
             </Rectangle.Effect>
         </Rectangle>
-        <Rectangle  Height="30" Width="100" VerticalAlignment="Top" Margin="0,25" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None">
+        <Rectangle Name="EtiquetteClients" Height="30" Width="100" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,6" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None">
             <Rectangle.Effect>
                 <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
             </Rectangle.Effect>
         </Rectangle>
-        <TextBlock Text="Clients" FontFamily="Champagne &amp; Limousines" FontSize="20" HorizontalAlignment="Center" Margin="0,28" Foreground="Black"/>
+        <TextBlock Text="Clients" FontFamily="Champagne &amp; Limousines" FontSize="20" HorizontalAlignment="Center" Margin="0,9" Foreground="Black"/>
 
-        <ListView Margin="10" Name="lvCustomers">
+        <!--
+        <ListView Margin="10" Name="lvCustomers" ItemsSource="{Binding}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Name" Width="120" DisplayMemberBinding="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <GridViewColumn Header="Age" Width="50" DisplayMemberBinding="{Binding LastName}" />
+                    <GridViewColumn Header="Mail" Width="150" DisplayMemberBinding="{Binding Email}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        -->
+
+        <ListView Margin="15,35,0,0" Name="lvCustomers" ItemsSource="{Binding}" Grid.RowSpan="2" SelectionChanged="lvCustomers_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <materialDesign:Chip Content="{Binding CompleteName}" IsDeletable="True" Click="lvCustomers_SelectionChanged" DeleteClick="RemoveCustomer" ToolTip="Plus d'informations" DeleteToolTip="Supprimer cette personne">
+                    <StackPanel Orientation="Horizontal">
+                        <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}" >
+                            <Image Source="{Binding Avatar}"></Image>
+                        </ToggleButton>
+                        <Label Content="{Binding CompleteName, Mode=OneWay}" VerticalAlignment="Center" FontSize="14" FontWeight="Bold" />
+                        <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}" ToolTip="Supprimer" Click="RemoveCustomer">
+                            <ToggleButton.Content>
+                                <materialDesign:PackIcon Kind="Close" />
+                            </ToggleButton.Content>
+                            <materialDesign:ToggleButtonAssist.OnContent>
+                                <materialDesign:PackIcon Kind="Close" />
+                            </materialDesign:ToggleButtonAssist.OnContent>
+                        </ToggleButton>
+
+
+                        <!--
+                        <materialDesign:Chip Content="{Binding CompleteName}" IsDeletable="True" DeleteClick="RemoveCustomer" ToolTip="Plus d'informations" DeleteToolTip="Supprimer cette personne">
                             <materialDesign:Chip.Icon>
                                 <Image Source="{Binding Avatar}" />
                             </materialDesign:Chip.Icon>
                         </materialDesign:Chip>
+                        -->
                     </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Width="100" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5" Content="AJOUTER" Click="AddCustomer" Background="#FF36288A"/>
+        
+        <Button Width="100" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5" Content="AJOUTER" Click="AddCustomer" Background="#FF36288A"/>
+        <Rectangle Margin="0,20,10,20" Grid.Column="1" Grid.RowSpan="2" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None">
+            <Rectangle.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
+            </Rectangle.Effect>
+        </Rectangle>
+        <Grid Name="grpInfoCustomer" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Height="400" Margin="10,15,15,25" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.6*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
 
-        <Grid Grid.Column="1" Width="450" >
-            <Rectangle  Height="370" VerticalAlignment="Bottom" Margin="0,25" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None">
-                <Rectangle.Effect>
-                    <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
-                </Rectangle.Effect>
-            </Rectangle>
-            <StackPanel Name="grpInfoCustomer" VerticalAlignment="Center" Margin="15,50,15,15" >
-                <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Prénom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Height="44" Width="300" HorizontalAlignment="Left"/>
-                <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Height="44" Width="300" HorizontalAlignment="Left"/>
-                <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Height="44"/>
-                <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
-                    <TextBlock Text ="Genre :" FontFamily="Champagne &amp; Limousines" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                    <RadioButton Content="Femme" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,0,10,0" Checked="RadioButton_Checked"/>
-                    <RadioButton Content="Homme" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
-                </StackPanel>
-                <TextBox Text="{Binding Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Rue" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Height="44" />
-                <TextBox Text="{Binding NumberStreet, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Numéro" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Height="44"/>
-                <ComboBox materialDesign:HintAssist.Hint="Ville" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0" Height="28">
 
-                </ComboBox>
-                <PasswordBox  Margin="0,10" materialDesign:HintAssist.Hint="Mot de passe" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Height="44"/>
+            <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Prénom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" />
+            <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="1"/>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ComboBox materialDesign:HintAssist.Hint="Préfixe" IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,15,0"
+                    SelectedItem="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="Indicatif"/>
+                <ComboBox materialDesign:HintAssist.Hint="Tel" IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,15,0" Grid.Column="1"
+                    SelectedItem="{Binding PhoneNumbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding PhoneNumberCustomers, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="Tel"/>
+            </Grid>
+            <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="3"/>
+            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" Grid.Row="4" Grid.ColumnSpan="2">
+                <TextBlock Text ="Genre :" FontFamily="Champagne &amp; Limousines" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <RadioButton IsChecked="{Binding Sex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Femme" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,0,10,0" Checked="RadioButton_Checked"/>
+                <RadioButton IsChecked="{Binding Sex, Mode=OneWay, Converter={StaticResource objGenreConverter}}" Content="Homme" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
             </StackPanel>
-            <Rectangle  Height="80" Width="80" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,75,20,0" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None">
+            <TextBox Text="{Binding Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Rue" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="5" />
+            <TextBox Text="{Binding StreetNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Numéro" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="5" Grid.Column="1" Margin="10,0"/>
+            <ComboBox materialDesign:HintAssist.Hint="Code postal" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0"  Grid.Row="6"
+                SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="PostalCode"/>
+            <ComboBox materialDesign:HintAssist.Hint="Ville" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="10,15,0,0" Grid.Row="6" Grid.Column="1"
+                SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="NameTown"/>
+            <ComboBox materialDesign:HintAssist.Hint="Pays" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0" Grid.Row="7"
+                SelectedItem="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="NameCountry"/>
+            <Rectangle Name="CadreAvatar"  Margin="5,30,10,10" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None" Grid.RowSpan="4" Grid.Column="1">
                 <Rectangle.Effect>
-                    <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
+                    <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB" />
                 </Rectangle.Effect>
             </Rectangle>
-            <Image Source="{Binding Avatar}" Width="75" Height="75" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="225,10,0,0" />
+            <Image Source="{Binding Avatar}" Width="150" Height="150" Margin="8,35,13,15" Grid.RowSpan="4" Grid.Column="1"/>
         </Grid>
     </Grid>
 </Page>

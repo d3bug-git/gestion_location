@@ -47,12 +47,12 @@
                                 <materialDesign:PackIcon Kind="Shape" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Propriétaires">
+                        <MenuItem Header="Propriétaires" Click="AfficherProprietaires">
                             <MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="Key" />
                             </MenuItem.Icon>
                         </MenuItem>
-                        <MenuItem Header="Clients">
+                        <MenuItem Header="Clients" Click="AfficherClients">
                             <MenuItem.Icon>
                                 <iconPacks:PackIconMaterial Kind="AccountGroup" />
                             </MenuItem.Icon>

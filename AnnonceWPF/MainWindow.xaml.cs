@@ -36,6 +36,8 @@ namespace AnnonceWPF
         private void AfficherAnnonces(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgAdverts()); }
         private void AfficherCategorie(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgCategories()); }
         private void AfficherProprietaires(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgOwners()); }
+        private void AfficherClients(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgCustomers()); }
+        
         private void SauvegarderModifications(object sender, RoutedEventArgs e)
         {
             BDD.SauvegarderModifications();

@@ -25,6 +25,8 @@ namespace AnnonceWPF
         BDDSingleton BDD = BDDSingleton.Instance;
         public ReadOnlyObservableCollection<Customer> Customers => BDD.customers;
         public ReadOnlyObservableCollection<Town> Towns => BDD.towns;
+        public ReadOnlyObservableCollection<Country> Countries => BDD.countries;
+        public ReadOnlyObservableCollection<PhoneNumberCustomer> PhoneNumberCustomers => BDD.phoneNumbers;
         public pgCustomers()
         {
             InitializeComponent();
@@ -32,20 +34,33 @@ namespace AnnonceWPF
         }
         private void RemoveCustomer(object sender, RoutedEventArgs e)
         {
-
+            Customer selection = (Customer)lvCustomers.SelectedItem;
+            if (selection != null)
+            {
+                if (MessageBox.Show($"Etes-vous sur de vouloir supprimer {selection.CompleteName} de la liste ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    Statics.TryCatch(() => { BDD.RemoveCustomer(selection); }, nameof(RemoveCustomer));
+                }
+            }
+            grpInfoCustomer.DataContext = (Customer)lvCustomers.SelectedItem;
         }
         private void AddCustomer(object sender, RoutedEventArgs e)
         {
-
+            Statics.TryCatch(() => { lvCustomers.SelectedItem = BDD.AddCustomer("Doe", "John", "DoeJohn@example.be", "HelloWorld", false, "https://picsum.photos/150/150", "Rue des petits voyous", "11",BDD.towns.FirstOrDefault());}, nameof(AddCustomer));
+            
+        }
+        private void ClickChips (object sender, RoutedEventArgs e)
+        {
+            if (lvCustomers.SelectedItem != null) { grpInfoCustomer.DataContext = (Customer)lvCustomers.SelectedItem; }
         }
         private void lvCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lvCustomers.SelectedItem != null) { grpInfoCustomer.DataContext = (Customer)lvCustomers.SelectedItem; }
         }
-
-        private void lvCustomers_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
 
         }
+
     }
 }

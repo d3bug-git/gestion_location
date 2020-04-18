@@ -4,6 +4,8 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Windows.Data;
+using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace AnnonceWPF
 {
@@ -31,4 +33,13 @@ namespace AnnonceWPF
             throw new NotImplementedException();
         }
     }
+    class SexConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value == null) return DependencyProperty.UnsetValue;
+            return !((bool)value);
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture) => null;
+    }    
 }

@@ -13,6 +13,23 @@
     <Grid>
         <GroupBox Header="Liste des Annonces" Name="grAnnonces">
             <ListView Name="lvAdverts" ItemsSource="{Binding}" SelectionMode="Single" SelectionChanged="lvAdverts_SelectionChanged">
+                <ListView.Resources>
+                    <ContextMenu x:Key="ctxOnItem">
+                        <MenuItem Header="Supprimer l'annonce sélectionnée" Click="RemoveAdvert"/>
+                        <MenuItem Header="Ajouter une annonce" Click="AddAdvert"/>
+                    </ContextMenu>
+                </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="ContextMenu" Value="{StaticResource ctxOnItem}"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Ajouter une annonce" Click="AddAdvert"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Details" Width="1024">

@@ -27,6 +27,8 @@ namespace AnnonceWPF
         public ReadOnlyObservableCollection<Town> Towns => BDD.towns;
         public ReadOnlyObservableCollection<Country> Countries => BDD.countries;
         public ReadOnlyObservableCollection<PhoneNumberCustomer> PhoneNumberCustomers => BDD.phoneNumbers;
+        public ReadOnlyObservableCollection<Advert> Adverts => BDD.adverts;
+        public ReadOnlyObservableCollection<Picture> Pictures => BDD.pictures;
         public pgCustomers()
         {
             InitializeComponent();
@@ -55,7 +57,11 @@ namespace AnnonceWPF
         }
         private void lvCustomers_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (lvCustomers.SelectedItem != null) { grpInfoCustomer.DataContext = (Customer)lvCustomers.SelectedItem; }
+            if (lvCustomers.SelectedItem != null) 
+            { 
+                grpInfoCustomer.DataContext = (Customer)lvCustomers.SelectedItem;
+                grpLocation.DataContext = ((Customer)lvCustomers.SelectedItem).Books;
+            }
         }
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {

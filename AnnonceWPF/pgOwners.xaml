@@ -46,7 +46,7 @@
         </Rectangle>
         <TextBlock Text="Propriètaires" FontFamily="Champagne &amp; Limousines" FontSize="20" HorizontalAlignment="Center" Margin="0,9" Foreground="Black"/>
 
-        <ListView Margin="15,35,0,0" Name="lvOwners" ItemsSource="{Binding}" Grid.RowSpan="2" SelectionChanged="lvOwners_SelectionChanged">
+        <ListView Margin="20,35,20,20" Name="lvOwners" ItemsSource="{Binding}" Grid.RowSpan="2" SelectionChanged="lvOwners_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -68,64 +68,105 @@
         </ListView>
 
         <Button Width="100" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5" Content="AJOUTER" Click="AddOwner" Background="#FF156519" BorderBrush="#FF156519"/>
-        <Rectangle Margin="0,20,10,20" Grid.Column="1" Grid.RowSpan="2" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None">
-            <Rectangle.Effect>
-                <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
-            </Rectangle.Effect>
-        </Rectangle>
-        <Grid Name="grpInfoOwner" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Height="400" Margin="10,15,15,25" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0.6*"/>
-            </Grid.ColumnDefinitions>
+        <Grid Name="grpOwner" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,15,10,25" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="400"/>
+                <RowDefinition Height="5"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
+            
+            <Grid Name="grpInfoOwner" VerticalAlignment="Top" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.6*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Prénom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
-            <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="1"/>
+                <Rectangle Margin="-5" Grid.ColumnSpan="2" Grid.RowSpan="8" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None">
+                    <Rectangle.Effect>
+                        <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB"/>
+                    </Rectangle.Effect>
+                </Rectangle>
+
+                <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Prénom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
+                <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="1"/>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Name="ComboBoxIndicatif" materialDesign:HintAssist.Hint="Préfixe" IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,15,0"
+                              SelectedItem="{Binding Town.Country.Indicatif, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="Indicatif"/>
+                    <ComboBox materialDesign:HintAssist.Hint="Tel" IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,15,0" Grid.Column="1"
+                        SelectedItem="{Binding PhoneNumbers.FirstOrDefault.Tel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ItemsSource="{Binding PhoneNumbers}" DisplayMemberPath="Tel"/>
+                </Grid>
+                <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="3"/>
+                <StackPanel Orientation="Horizontal" Margin="0,15,0,0" Grid.Row="4" Grid.ColumnSpan="2">
+                    <TextBlock Text ="Genre :" FontFamily="Champagne &amp; Limousines" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <RadioButton IsChecked="{Binding Sex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Femme" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,0,10,0" Checked="RadioButton_Checked" Background="#FF156519"/>
+                    <RadioButton IsChecked="{Binding Sex, Mode=OneWay, Converter={StaticResource objGenreConverter}}" Content="Homme" FontFamily="Champagne &amp; Limousines" FontSize="18" Background="#FF156519"/>
+                </StackPanel>
+                <TextBox Text="{Binding Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Rue" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="5" />
+                <TextBox Text="{Binding StreetNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Numéro" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="5" Grid.Column="1" Margin="10,0"/>
+                <ComboBox materialDesign:HintAssist.Hint="Code postal" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0"  Grid.Row="6"
+                    SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="PostalCode"/>
+                <ComboBox materialDesign:HintAssist.Hint="Ville" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="10,15,0,0" Grid.Row="6" Grid.Column="1"
+                    SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="NameTown"/>
+                <ComboBox Name="ComboBoxCountryName" materialDesign:HintAssist.Hint="Pays" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0" Grid.Row="7"
+                    SelectedItem="{Binding NameCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="NameCountry"/>
+                <Rectangle Name="CadreAvatar"  Margin="5,30,10,10" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None" Grid.RowSpan="4" Grid.Column="1">
+                    <Rectangle.Effect>
+                        <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB" />
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Image Source="{Binding Avatar}" Width="150" Height="150" Margin="8,35,13,15" Grid.RowSpan="4" Grid.Column="1"/>
+            </Grid>
+            <GridSplitter Grid.Row="1" Background="Gray" HorizontalAlignment="Stretch" />
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <ComboBox materialDesign:HintAssist.Hint="Préfixe" IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,15,0"
-                    SelectedItem="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="Indicatif"/>
-                <ComboBox materialDesign:HintAssist.Hint="Tel" IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,15,0" Grid.Column="1"
-                    SelectedItem="{Binding PhoneNumbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    ItemsSource="{Binding PhoneNumberOwners, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="Tel"/>
+                <GroupBox Name="grpProprietes" Header="Propriétés de la personne sélectionnée" Margin="2">
+                    <ListView Name="lvProprietes" ItemsSource="{Binding}" SelectionMode="Single" Margin="1" >
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}" Background="#FF156519" >
+                                                <Image Source="{Binding Pictures.FirstorDefault}"></Image>
+                                            </ToggleButton>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header ="Nom">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>                                        
+                                            <Label Content="{Binding Title, Mode=OneWay}"></Label>                                        
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>                            
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </GroupBox>                
             </Grid>
-            <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="3"/>
-            <StackPanel Orientation="Horizontal" Margin="0,15,0,0" Grid.Row="4" Grid.ColumnSpan="2">
-                <TextBlock Text ="Genre :" FontFamily="Champagne &amp; Limousines" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                <RadioButton IsChecked="{Binding Sex, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="Femme" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,0,10,0" Checked="RadioButton_Checked" Background="#FF156519"/>
-                <RadioButton IsChecked="{Binding Sex, Mode=OneWay, Converter={StaticResource objGenreConverter}}" Content="Homme" FontFamily="Champagne &amp; Limousines" FontSize="18" Background="#FF156519"/>
-            </StackPanel>
-            <TextBox Text="{Binding Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Rue" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="5" />
-            <TextBox Text="{Binding StreetNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Numéro" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="5" Grid.Column="1" Margin="10,0"/>
-            <ComboBox materialDesign:HintAssist.Hint="Code postal" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0"  Grid.Row="6"
-                SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="PostalCode"/>
-            <ComboBox materialDesign:HintAssist.Hint="Ville" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="10,15,0,0" Grid.Row="6" Grid.Column="1"
-                SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="NameTown"/>
-            <ComboBox materialDesign:HintAssist.Hint="Pays" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0" Grid.Row="7"
-                SelectedItem="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="NameCountry"/>
-            <Rectangle Name="CadreAvatar"  Margin="5,30,10,10" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None" Grid.RowSpan="4" Grid.Column="1">
-                <Rectangle.Effect>
-                    <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB" />
-                </Rectangle.Effect>
-            </Rectangle>
-            <Image Source="{Binding Avatar}" Width="150" Height="150" Margin="8,35,13,15" Grid.RowSpan="4" Grid.Column="1"/>
+
         </Grid>
     </Grid>
 </Page>

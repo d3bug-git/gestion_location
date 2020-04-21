@@ -27,11 +27,14 @@ namespace AnnonceWPF
         public ReadOnlyObservableCollection<Town> Towns => BDD.towns;
         public ReadOnlyObservableCollection<Country> Countries => BDD.countries;
         public ReadOnlyObservableCollection<PhoneNumberCustomer> PhoneNumberCustomers => BDD.phoneNumbers;
+        public ReadOnlyObservableCollection<Advert> Adverts => BDD.adverts;
+        public ReadOnlyObservableCollection<Picture> Pictures => BDD.pictures;
 
         public pgOwners()
         {
             InitializeComponent();
             lvOwners.DataContext = BDD.owners;
+            ComboBoxIndicatif.SelectedItem = Countries.FirstOrDefault().Indicatif;
         }
 
         private void AddOwner(object sender, RoutedEventArgs e)
@@ -49,11 +52,24 @@ namespace AnnonceWPF
                     Statics.TryCatch(() => { BDD.RemoveOwner(selection); }, nameof(RemoveOwner));
                 }
             }
-            grpInfoOwner.DataContext = (Customer)lvOwners.SelectedItem;
+            grpOwner.DataContext = (Customer)lvOwners.SelectedItem;
         }
         private void lvOwners_SelectionChanged (object sender, SelectionChangedEventArgs e)
         {
-            if (lvOwners.SelectedItem != null) { grpInfoOwner.DataContext = (Owner)lvOwners.SelectedItem; }
+            if (lvOwners.SelectedItem != null) 
+            { 
+                grpInfoOwner.DataContext = (Owner)lvOwners.SelectedItem;
+                //ComboBoxIndicatif.SelectedItem = ((Owner)lvOwners.SelectedItem).Town.Country.Indicatif;
+                //MessageBox.Show(((Owner)lvOwners.SelectedItem).Town.Country.Indicatif);
+                grpProprietes.DataContext = ((Owner)lvOwners.SelectedItem).Adverts;
+                ComboBoxCountryName.DataContext = ((Owner)lvOwners.SelectedItem).Town.Country;
+            }
+            //Client client = (Client)lvClients.SelectedItem;
+            //if (client != null)
+            //{
+                //On n'affiche que les emprunts qui sont en cours (pas de date de retour)
+                //grpEmprunts.DataContext = client.Emprunts.Where(e => e.DateRetour == null);
+            //}
         }
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {

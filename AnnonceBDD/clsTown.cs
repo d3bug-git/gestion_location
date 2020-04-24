@@ -35,6 +35,7 @@ namespace AnnonceBDD
         }
         public Country Country { get; set; }
         public int CountryID { get; set; }
+        public string Resume => $"{NameTown} ({Country.NameCountry})";
 
         public ObservableCollection<Advert> Adverts { get; set; } = new ObservableCollection<Advert>();
         public ObservableCollection<Owner> Owners { get; set; } = new ObservableCollection<Owner>();

@@ -100,16 +100,9 @@
                 <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Prénom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
                 <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="1"/>
                 <Grid Grid.Row="2">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.4*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <ComboBox Name="ComboBoxIndicatif" materialDesign:HintAssist.Hint="Préfixe" IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,15,0"
-                              SelectedItem="{Binding Town.Country.Indicatif, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="Indicatif"/>
-                    <ComboBox materialDesign:HintAssist.Hint="Tel" IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,15,0" Grid.Column="1"
-                        SelectedItem="{Binding PhoneNumbers.FirstOrDefault.Tel, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ItemsSource="{Binding PhoneNumbers}" DisplayMemberPath="Tel"/>
+                    <ListBox x:Name="lbTel" ItemsSource="{Binding}" DisplayMemberPath="Tel">
+                        
+                    </ListBox>
                 </Grid>
                 <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="3"/>
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" Grid.Row="4" Grid.ColumnSpan="2">
@@ -124,10 +117,8 @@
                     ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="PostalCode"/>
                 <ComboBox materialDesign:HintAssist.Hint="Ville" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="10,15,0,0" Grid.Row="6" Grid.Column="1"
                     SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="NameTown"/>
-                <ComboBox Name="ComboBoxCountryName" materialDesign:HintAssist.Hint="Pays" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0" Grid.Row="7"
-                    SelectedItem="{Binding NameCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="NameCountry"/>
+                    ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="Resume"/>
+                
                 <Rectangle Name="CadreAvatar"  Margin="5,30,10,10" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None" Grid.RowSpan="4" Grid.Column="1">
                     <Rectangle.Effect>
                         <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB" />

@@ -23,10 +23,10 @@ namespace AnnonceWPF
     public partial class pgOwners : Page
     {
         BDDSingleton BDD = BDDSingleton.Instance;
-        public ReadOnlyObservableCollection<Customer> Customers => BDD.customers;
+        public ReadOnlyObservableCollection<Owner> Owners => BDD.owners;
         public ReadOnlyObservableCollection<Town> Towns => BDD.towns;
         public ReadOnlyObservableCollection<Country> Countries => BDD.countries;
-        public ReadOnlyObservableCollection<PhoneNumberCustomer> PhoneNumberCustomers => BDD.phoneNumbers;
+        public ReadOnlyObservableCollection<PhoneNumberOwner> PhoneNumberOwners => BDD.phoneNumbersOwners;
         public ReadOnlyObservableCollection<Advert> Adverts => BDD.adverts;
         public ReadOnlyObservableCollection<Picture> Pictures => BDD.pictures;
 
@@ -34,7 +34,6 @@ namespace AnnonceWPF
         {
             InitializeComponent();
             lvOwners.DataContext = BDD.owners;
-            ComboBoxIndicatif.SelectedItem = Countries.FirstOrDefault().Indicatif;
         }
 
         private void AddOwner(object sender, RoutedEventArgs e)
@@ -52,7 +51,7 @@ namespace AnnonceWPF
                     Statics.TryCatch(() => { BDD.RemoveOwner(selection); }, nameof(RemoveOwner));
                 }
             }
-            grpOwner.DataContext = (Customer)lvOwners.SelectedItem;
+            grpOwner.DataContext = (Owner)lvOwners.SelectedItem;
         }
         private void lvOwners_SelectionChanged (object sender, SelectionChangedEventArgs e)
         {
@@ -62,7 +61,7 @@ namespace AnnonceWPF
                 //ComboBoxIndicatif.SelectedItem = ((Owner)lvOwners.SelectedItem).Town.Country.Indicatif;
                 //MessageBox.Show(((Owner)lvOwners.SelectedItem).Town.Country.Indicatif);
                 grpProprietes.DataContext = ((Owner)lvOwners.SelectedItem).Adverts;
-                ComboBoxCountryName.DataContext = ((Owner)lvOwners.SelectedItem).Town.Country;
+                lbTel.DataContext = ((Owner)lvOwners.SelectedItem).PhoneNumbers;
             }
             //Client client = (Client)lvClients.SelectedItem;
             //if (client != null)

@@ -58,7 +58,7 @@
         </ListView>
         -->
 
-        <ListView Margin="15,35,0,0" Name="lvCustomers" ItemsSource="{Binding}" Grid.RowSpan="2" SelectionChanged="lvCustomers_SelectionChanged">
+        <ListView Margin="20,35,20,20" Name="lvCustomers" ItemsSource="{Binding}" Grid.RowSpan="2" SelectionChanged="lvCustomers_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
@@ -91,7 +91,7 @@
         <Button Width="100" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5" Content="AJOUTER" Click="AddCustomer" Background="#FF36288A"/>
         <Grid Name="GrpCustomer" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,15,10,25" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="400"/>
+                <RowDefinition Height="360"/>
                 <RowDefinition Height="5"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
@@ -102,7 +102,6 @@
                     <ColumnDefinition Width="0.6*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -123,15 +122,14 @@
                 <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="1"/>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.4*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0,3*"/>
                     </Grid.ColumnDefinitions>
-                    <ComboBox materialDesign:HintAssist.Hint="Préfixe" IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,15,0"
-                        SelectedItem="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                        ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="Indicatif"/>
-                    <ComboBox materialDesign:HintAssist.Hint="Tel" IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,15,0" Grid.Column="1"
-                        SelectedItem="{Binding PhoneNumbers, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                        ItemsSource="{Binding PhoneNumberCustomers, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="Tel"/>
+                    <ListBox x:Name="lbTel" ItemsSource="{Binding PhoneNumbers}" DisplayMemberPath="Tel" FontFamily="Champagne &amp; Limousines" FontSize="18" VerticalAlignment="Center">
+
+                    </ListBox>
+                    <Button Content="+" FontFamily="Champagne &amp; Limousines" FontSize="18" Click="AddPhoneNumberDisplayInbox" Grid.Column="1" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
                 </Grid>
                 <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="3"/>
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" Grid.Row="4" Grid.ColumnSpan="2">
@@ -141,15 +139,14 @@
                 </StackPanel>
                 <TextBox Text="{Binding Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Rue" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="5" />
                 <TextBox Text="{Binding StreetNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Numéro" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="5" Grid.Column="1" Margin="10,0"/>
-                <ComboBox materialDesign:HintAssist.Hint="Code postal" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0"  Grid.Row="6"
+                <ComboBox materialDesign:HintAssist.Hint="Ville" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0" Grid.Row="6" 
+                    SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                    ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="Resume"/>
+                <ComboBox materialDesign:HintAssist.Hint="Code postal" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18"  Margin="10,15,0,0" Grid.Row="6" Grid.Column="1"
                     SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="PostalCode"/>
-                <ComboBox materialDesign:HintAssist.Hint="Ville" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="10,15,0,0" Grid.Row="6" Grid.Column="1"
-                    SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="NameTown"/>
-                <ComboBox materialDesign:HintAssist.Hint="Pays" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="0,15,0,0" Grid.Row="7"
-                    SelectedItem="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                    ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="NameCountry"/>
+                
+                
                 <Rectangle Name="CadreAvatar"  Margin="5,30,10,10" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None" Grid.RowSpan="4" Grid.Column="1">
                     <Rectangle.Effect>
                         <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB" />
@@ -202,6 +199,36 @@
                     </ListView>
                 </GroupBox>
             </Grid>
+        </Grid>
+        <Grid x:Name="inboxAddPhoneNumber" Visibility="Collapsed" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Grid Background="Black" Opacity="0.5"/>
+            <Border MinWidth="250" MinHeight="60" Background="LightGray" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="190"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock  Grid.ColumnSpan="2" Background="Blue" Margin="2" />
+                    <TextBlock  Text="Saisissez un numéro de téléphone" TextAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"
+                                Foreground="White" Margin="2" />
+                    <Label Content="Pays :" Grid.Row="1" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbCountry" Grid.Column="1" Margin="5,5,5,0" ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgCustomers}}}" DisplayMemberPath="NameCountry" Grid.Row="1"/>
+                    <Label Content="Tel :" Grid.Row="2" VerticalAlignment="Center" />
+                    <TextBox  Name="IAE_tbPhoneNumber" Grid.Row="2" Grid.Column="1" Margin="5,5,5,0" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" >
+                        <Button Margin="2" Content=" Ajouter "      Background="{x:Null}" Click="AddPhoneConfirmAction"/>
+                        <Button Margin="2" Content=" Annuler " Background="{x:Null}" Click="AddPhoneCancelAction"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </Page>

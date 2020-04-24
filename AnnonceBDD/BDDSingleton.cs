@@ -48,6 +48,7 @@ namespace AnnonceBDD
         private ReadOnlyObservableCollection<Owner> _owners;
         private ReadOnlyObservableCollection<Customer> _customers;
         private ReadOnlyObservableCollection<PhoneNumberCustomer> _phoneNumbers;
+        private ReadOnlyObservableCollection<PhoneNumberOwner> _phoneNumbersOwners;
         private ReadOnlyObservableCollection<Country> _countries;
         private ReadOnlyObservableCollection<Town> _towns;
         private ReadOnlyObservableCollection<Advert> _adverts;
@@ -58,6 +59,7 @@ namespace AnnonceBDD
         public ReadOnlyObservableCollection<Owner> owners => _owners;
         public ReadOnlyObservableCollection<Customer> customers => _customers;
         public ReadOnlyObservableCollection<PhoneNumberCustomer> phoneNumbers => _phoneNumbers;
+        public ReadOnlyObservableCollection<PhoneNumberOwner> phoneNumbersOwners => _phoneNumbersOwners;
         public ReadOnlyObservableCollection<Country> countries => _countries;
         public ReadOnlyObservableCollection<Town> towns => _towns;
         public ReadOnlyObservableCollection<Advert> adverts => _adverts;

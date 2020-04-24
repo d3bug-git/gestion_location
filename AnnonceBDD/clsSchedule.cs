@@ -20,32 +20,8 @@ namespace AnnonceBDD
                 cPrix = value;
             }
         }
-        private DateTime cStartDate;
-        public DateTime StartDate
-        {
-            get => cStartDate;
-            set
-            {
-                if (value < DateTime.Now) 
-                { 
-                    throw new ArgumentException($"{nameof(StartDate)} : La date de début doit être égale ou postérieure à la date du jour."); 
-                }
-                cStartDate = value;
-            }
-        }
-        private DateTime cEndDate;
-        public DateTime EndDate
-        {
-            get => cEndDate;
-            set
-            {
-                if (value < DateTime.Now) 
-                { 
-                    throw new ArgumentException($"{nameof(EndDate)} : La date de fin doit être égale ou postérieure à la date du jour."); 
-                }
-                cEndDate = value;
-            }
-        }
+        public DateTime StartDate { get; set; }        
+        public DateTime EndDate { get; set; }
         public int AdvertID { get; set; }
         public Advert Advert { get; set; } 
 

@@ -11,6 +11,11 @@
       Title="pgAdverts">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height ="280"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         <GroupBox Header="Liste des Annonces" Name="grAnnonces">
             <ListView Name="lvAdverts" ItemsSource="{Binding}" SelectionMode="Single" SelectionChanged="lvAdverts_SelectionChanged">
                 <ListView.Resources>
@@ -92,5 +97,125 @@
                 </ListView.View>
             </ListView>
         </GroupBox>
+        <GridSplitter Grid.Row="1" Background="Gray" HorizontalAlignment="Stretch" />
+        <GroupBox Header="Liste des Réservations" Name="grReservations" Grid.Row="2">
+            <ListView Name="lvReservation" ItemsSource="{Binding}" SelectionMode="Single" Margin="1">
+                <ListView.Resources>
+                    <ContextMenu x:Key="ctxOnItem">
+                        <MenuItem Header="Supprimer la réservation sélectionnée" Click="SupprimerReservation"/>
+                        <MenuItem Header="Ajouter une résevation" Click="AjouterReservationAfficherInbox"/>
+                    </ContextMenu>
+                </ListView.Resources>
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListViewItem}">
+                        <Setter Property="ContextMenu" Value="{StaticResource ctxOnItem}"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Ajouter une réservation" Click="AjouterReservationAfficherInbox"/>
+                    </ContextMenu>
+                </ListView.ContextMenu>
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header ="Client">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ComboBox ItemsSource="{Binding Customers, RelativeSource={RelativeSource AncestorType={x:Type local:pgAdverts}}}" DisplayMemberPath="CompleteName" Width="150"
+                                              SelectedItem="{Binding Customer}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        
+                        <GridViewColumn Header ="Date d'arrivée">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding DateArrival, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Width="100" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header ="Date de départ (fin)">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <DatePicker SelectedDate="{Binding DateDeparture, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}" Width="100" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header ="Nb Adulte(s)">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding NbAdults, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header ="Nb Enfant(s)">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding NbChildren, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header ="Message">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Message, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </GroupBox>
+
+        <Grid x:Name="inboxAjouterReservation" Visibility="Collapsed" Grid.RowSpan="3">
+            <Grid Background="Black" Opacity="0.5"/>
+            <Border MinWidth="250" MinHeight="60" Background="LightGray" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"/>
+                        <ColumnDefinition Width="170"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock  Grid.ColumnSpan="4" Background="Blue" Margin="2" />
+                    <TextBlock  Text="Ajouter une réservation" TextAlignment="Center" VerticalAlignment="Center"
+                                Grid.ColumnSpan="4" Foreground="White" Margin="2" />
+                    <TextBlock  Text="Annonce :" Grid.Row="1" Margin="5,2,2,2" />
+                    <TextBlock  Name="IAE_tbAnnonce" Text="{Binding Title}" Grid.Row="1" Grid.Column="1" Margin="2" />
+                    <TextBlock  Text="Client :" Grid.Row="2" Margin="5,2,2,2" VerticalAlignment="Center"/>
+                    <ComboBox   Name="IAE_cmbClient" ItemsSource="{Binding Customers, RelativeSource={RelativeSource AncestorType={x:Type local:pgAdverts}}}" DisplayMemberPath="CompleteName"
+                                Grid.Row="2" Grid.Column="1" Margin="2" />
+                    <TextBlock  Text="Date d'arrivée :" Grid.Row="3" Margin="5,10,2,2" VerticalAlignment="Center"/>
+                    <DatePicker Name="IAE_DateArrival" Grid.Row="3" Grid.Column="1" Margin="2"  Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    <TextBlock  Text="Date de départ :" Grid.Row="4" Margin="5,10,2,2" VerticalAlignment="Center"/>
+                    <DatePicker Name="IAE_DateDeparture" Grid.Row="4" Grid.Column="1" Margin="2" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
+                    <Label Content="Nombre d'adulte(s) :" Grid.Row="5"/>
+                    <TextBox Name ="IAE_tbNbAdulte" Text="" Grid.Row="5" Grid.Column="1"/>
+                    <Label Content="Nombre d'enfant(s) :" Grid.Row="6"/>
+                    <TextBox Name ="IAE_tbNbEnfant" Text="" Grid.Row="6" Grid.Column="1"/>
+                    <Label Content="Message:" Grid.Row="7"/>
+                    <TextBox Name="IAE_tbMessage" Text="" Grid.Row="7" Grid.Column="1"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="8" Grid.ColumnSpan="2">
+                        <Button Margin="2" Content=" OK "      Background="{x:Null}" Click="AjouterReservationConfirmerAction"/>
+                        <Button Margin="2" Content=" Annuler " Background="{x:Null}" Click="AjouterReservationAnnulerAction"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

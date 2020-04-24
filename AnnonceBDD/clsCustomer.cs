@@ -125,9 +125,8 @@ namespace AnnonceBDD
 
         public ObservableCollection<PhoneNumberCustomer> PhoneNumbers { get; set; } = new ObservableCollection<PhoneNumberCustomer>();
         public string CompleteName => $"{FirstName} {LastName}";
-        public string Resume => $"{CompleteName}";
         public ObservableCollection<Book> Books { get; set; } = new ObservableCollection<Book>();
-
+        public string Resume => $"{CompleteName}";
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

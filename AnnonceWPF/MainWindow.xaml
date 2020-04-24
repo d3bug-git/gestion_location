@@ -36,7 +36,7 @@
                             </MenuItem.Icon>
                         </MenuItem>
                     </MenuItem>
-                    <MenuItem Header="_Affichache">
+                    <MenuItem Header="_Affichage">
                         <MenuItem Header="Annonces" Click="AfficherAnnonces">
                             <MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="Home" />

@@ -29,6 +29,7 @@ namespace AnnonceWPF
         public ReadOnlyObservableCollection<PhoneNumberCustomer> PhoneNumberCustomers => BDD.phoneNumbers;
         public ReadOnlyObservableCollection<Advert> Adverts => BDD.adverts;
         public ReadOnlyObservableCollection<Picture> Pictures => BDD.pictures;
+        public ReadOnlyObservableCollection<Book> Books => BDD.books;
         public pgCustomers()
         {
             InitializeComponent();

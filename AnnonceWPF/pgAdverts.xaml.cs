@@ -25,15 +25,21 @@ namespace AnnonceWPF
         public ReadOnlyObservableCollection<Owner> Owners => BDD.owners;
         public ReadOnlyObservableCollection<Town> Towns => BDD.towns;
         public ReadOnlyObservableCollection<Category> Categories => BDD.categories;
+        public ReadOnlyObservableCollection<Book> Books => BDD.books;
+        public ReadOnlyObservableCollection<Advert> Adverts => BDD.adverts;
+        public ReadOnlyObservableCollection<Customer> Customers => BDD.customers;
         public pgAdverts()
         {
             InitializeComponent();
-            grAnnonces.DataContext = BDD.adverts;
+            lvAdverts.DataContext = BDD.adverts;
         }
 
         private void lvAdverts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            if (lvAdverts.SelectedItem != null)
+            {
+                grReservations.DataContext = ((Advert)lvAdverts.SelectedItem).Books;
+            }
         }
 
         private void AddAdvert(object sender, RoutedEventArgs e)
@@ -51,6 +57,49 @@ namespace AnnonceWPF
                     Statics.TryCatch(() => { BDD.RemoveAdvert(selection); }, nameof(RemoveAdvert));
                 }
             }
+        }
+
+        private void SupprimerReservation(object sender, RoutedEventArgs e)
+        {
+            Book selection = (Book)lvReservation.SelectedItem;
+            if (selection != null)
+            {
+                if (MessageBox.Show($"Etes-vous sur de vouloir supprimer la réservation de {selection.Advert.Title} de la liste ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    Statics.TryCatch(() => { BDD.RemoveBook(selection); }, nameof(SupprimerReservation));
+                }
+            }
+        }
+
+        private void AjouterReservationAfficherInbox(object sender, RoutedEventArgs e)
+        {
+            IAE_tbAnnonce.DataContext = lvAdverts.SelectedItem;
+            IAE_cmbClient.SelectedItem = null;
+            IAE_DateArrival.SelectedDate = DateTime.Now;
+            IAE_DateDeparture.SelectedDate = null;
+
+            inboxAjouterReservation.Visibility = Visibility.Visible;
+        }
+
+        private void AjouterReservationConfirmerAction(object sender, RoutedEventArgs e)
+        {
+            int NbAdulte;
+            int NbEnfant;
+            bool Conversion;
+
+            Conversion = int.TryParse(IAE_tbNbAdulte.Text, out NbAdulte);
+            Conversion = int.TryParse(IAE_tbNbEnfant.Text, out NbEnfant);
+            try
+            {
+                Book lNouvelReservation = BDD.AddBook((Advert)IAE_tbAnnonce.DataContext, (Customer)IAE_cmbClient.SelectedItem, (DateTime)IAE_DateArrival.SelectedDate, (DateTime)IAE_DateDeparture.SelectedDate, NbAdulte, NbEnfant, IAE_tbMessage.Text);
+                inboxAjouterReservation.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Ajouter une réservation", MessageBoxButton.OK, MessageBoxImage.Warning); }
+        }
+
+        private void AjouterReservationAnnulerAction(object sender, RoutedEventArgs e)
+        {
+            inboxAjouterReservation.Visibility = Visibility.Collapsed;
         }
     }
 }

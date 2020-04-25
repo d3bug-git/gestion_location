@@ -58,24 +58,45 @@ namespace AnnonceWPF
             if (lvOwners.SelectedItem != null) 
             { 
                 grpInfoOwner.DataContext = (Owner)lvOwners.SelectedItem;
-                //ComboBoxIndicatif.SelectedItem = ((Owner)lvOwners.SelectedItem).Town.Country.Indicatif;
-                //MessageBox.Show(((Owner)lvOwners.SelectedItem).Town.Country.Indicatif);
-                grpProprietes.DataContext = ((Owner)lvOwners.SelectedItem).Adverts;
-                lbTel.DataContext = ((Owner)lvOwners.SelectedItem).PhoneNumbers;
+                grpProprietes.DataContext = ((Owner)lvOwners.SelectedItem).Adverts;                
             }
-            //Client client = (Client)lvClients.SelectedItem;
-            //if (client != null)
-            //{
-                //On n'affiche que les emprunts qui sont en cours (pas de date de retour)
-                //grpEmprunts.DataContext = client.Emprunts.Where(e => e.DateRetour == null);
-            //}
+            
         }
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
 
         }
 
+        private void AddPhoneNumberDisplayInbox(object sender, RoutedEventArgs e)
+        {
+            inboxAddPhoneNumber.Visibility = Visibility.Visible;
+        }
+        private void AddPhoneConfirmAction(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                PhoneNumberOwner lNewPhoneNumber = BDD.AddPhoneNumberOwner(IAE_tbPhoneNumber.Text, (Owner)lvOwners.SelectedItem, (Country)cbCountry.SelectedItem);
+                inboxAddPhoneNumber.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, "Ajouter un numéro de téléphone", MessageBoxButton.OK, MessageBoxImage.Warning); }
+        }
 
+        private void AddPhoneCancelAction(object sender, RoutedEventArgs e)
+        {
+            inboxAddPhoneNumber.Visibility = Visibility.Collapsed;
+        }
+
+        private void RemovePhoneNumber(object sender, RoutedEventArgs e)
+        {
+            PhoneNumberOwner selection = (PhoneNumberOwner)lbTel.SelectedItem;            
+            if (selection != null)
+            {
+                if (MessageBox.Show($"Etes-vous sur de vouloir supprimer le numéro de téléphone, {selection.Tel}, de la liste ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    Statics.TryCatch(() => { BDD.RemovePhoneNumberOwner(selection); }, nameof(RemovePhoneNumber));
+                }
+            }
+        }
 
     }
 }

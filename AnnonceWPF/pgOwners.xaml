@@ -30,7 +30,7 @@
                 <LinearGradientBrush EndPoint=" 0.5,1" StartPoint=" 0.5,0">
                     <GradientStop Color="#FF80EA6F"/>
                     <GradientStop Color="#FF399E1B" Offset="0.546"/>
-                    <GradientStop Color="#FF075B0F" Offset="1" />                    
+                    <GradientStop Color="#FF075B0F" Offset="1" />
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
@@ -70,18 +70,17 @@
         <Button Width="100" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,5" Content="AJOUTER" Click="AddOwner" Background="#FF156519" BorderBrush="#FF156519"/>
         <Grid Name="grpOwner" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0,15,10,25" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="400"/>
+                <RowDefinition Height="360"/>
                 <RowDefinition Height="5"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
+
             <Grid Name="grpInfoOwner" VerticalAlignment="Top" Margin="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="0.6*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -100,9 +99,24 @@
                 <TextBox Text="{Binding FirstName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Prénom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
                 <TextBox Text="{Binding LastName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Nom" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="1"/>
                 <Grid Grid.Row="2">
-                    <ListBox x:Name="lbTel" ItemsSource="{Binding}" DisplayMemberPath="Tel">
-                        
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Tel :" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.ColumnSpan="2" Margin="0,0,88,0"/>
+                    <ListBox x:Name="lbTel" ItemsSource="{Binding PhoneNumbers}" DisplayMemberPath="Tel" FontFamily="Champagne &amp; Limousines" FontSize="18" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,8,0">
+
                     </ListBox>
+                    <Button Content="+" FontFamily="Champagne &amp; Limousines" FontSize="18" ToolTip="Ajouter un numéro de téléphone" Click="AddPhoneNumberDisplayInbox" Background="#FF156519" Grid.Column="2" Width="45" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32"/>
+                    <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}" ToolTip="Supprimer" Click="RemovePhoneNumber" Background="#FF156519" Grid.Column="2" HorizontalAlignment="Right">
+                        <ToggleButton.Content>
+                            <materialDesign:PackIcon Kind="Close" />
+                        </ToggleButton.Content>
+                        <materialDesign:ToggleButtonAssist.OnContent>
+                            <materialDesign:PackIcon Kind="Close" />
+                        </materialDesign:ToggleButtonAssist.OnContent>
+                    </ToggleButton>
                 </Grid>
                 <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="3"/>
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" Grid.Row="4" Grid.ColumnSpan="2">
@@ -118,7 +132,7 @@
                 <ComboBox materialDesign:HintAssist.Hint="Ville" IsEditable="True" FontFamily="Champagne &amp; Limousines" FontSize="18" Margin="10,15,0,0" Grid.Row="6" Grid.Column="1"
                     SelectedItem="{Binding Town, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                     ItemsSource="{Binding Towns, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="Resume"/>
-                
+
                 <Rectangle Name="CadreAvatar"  Margin="5,30,10,10" RadiusY="10" RadiusX="10" Fill="White" StrokeDashCap="Round" Cursor="None" Grid.RowSpan="4" Grid.Column="1">
                     <Rectangle.Effect>
                         <DropShadowEffect BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1" Color="#FFBBBBBB" />
@@ -147,17 +161,47 @@
                                 </GridViewColumn>
                                 <GridViewColumn Header ="Nom">
                                     <GridViewColumn.CellTemplate>
-                                        <DataTemplate>                                        
-                                            <Label Content="{Binding Title, Mode=OneWay}"></Label>                                        
+                                        <DataTemplate>
+                                            <Label Content="{Binding Title, Mode=OneWay}"></Label>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
-                                </GridViewColumn>                            
+                                </GridViewColumn>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                </GroupBox>                
+                </GroupBox>
             </Grid>
 
+        </Grid>
+        <Grid x:Name="inboxAddPhoneNumber" Visibility="Collapsed" Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <Grid Background="Black" Opacity="0.5"/>
+            <Border MinWidth="250" MinHeight="60" Background="LightGray" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="190"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock  Grid.ColumnSpan="2" Background="Blue" Margin="2" />
+                    <TextBlock  Text="Saisissez un numéro de téléphone" TextAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"
+                                Foreground="White" Margin="2" />
+                    <Label Content="Pays :" Grid.Row="1" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbCountry" Grid.Column="1" Margin="5,5,5,0" ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgOwners}}}" DisplayMemberPath="NameCountry" Grid.Row="1"/>
+                    <Label Content="Tel :" Grid.Row="2" VerticalAlignment="Center" />
+                    <TextBox  Name="IAE_tbPhoneNumber" Grid.Row="2" Grid.Column="1" Margin="5,5,5,0" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2" >
+                        <Button Margin="2" Content=" Ajouter "      Background="{x:Null}" Click="AddPhoneConfirmAction"/>
+                        <Button Margin="2" Content=" Annuler " Background="{x:Null}" Click="AddPhoneCancelAction"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 </Page>

@@ -123,13 +123,22 @@
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0,3*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="lbTel" ItemsSource="{Binding PhoneNumbers}" DisplayMemberPath="Tel" FontFamily="Champagne &amp; Limousines" FontSize="18" VerticalAlignment="Center">
+                    <Label Content="Tel :" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
+                    <ListBox x:Name="lbTel" ItemsSource="{Binding PhoneNumbers}" DisplayMemberPath="Tel" FontFamily="Champagne &amp; Limousines" FontSize="18" VerticalAlignment="Center" Grid.Column="1">
 
                     </ListBox>
-                    <Button Content="+" FontFamily="Champagne &amp; Limousines" FontSize="18" Click="AddPhoneNumberDisplayInbox" Grid.Column="1" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+                    <Button Content="+" FontFamily="Champagne &amp; Limousines" FontSize="18" Click="AddPhoneNumberDisplayInbox" Grid.Column="2" Width="45" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}" ToolTip="Supprimer" Click="RemovePhoneNumber"  Grid.Column="2" HorizontalAlignment="Right">
+                        <ToggleButton.Content>
+                            <materialDesign:PackIcon Kind="Close" />
+                        </ToggleButton.Content>
+                        <materialDesign:ToggleButtonAssist.OnContent>
+                            <materialDesign:PackIcon Kind="Close" />
+                        </materialDesign:ToggleButtonAssist.OnContent>
+                    </ToggleButton>
                 </Grid>
                 <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="Email" Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontFamily="Champagne &amp; Limousines" FontSize="18" Grid.Row="3"/>
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0" Grid.Row="4" Grid.ColumnSpan="2">

@@ -86,5 +86,17 @@ namespace AnnonceWPF
         {
             inboxAddPhoneNumber.Visibility = Visibility.Collapsed;
         }
+
+        private void RemovePhoneNumber(object sender, RoutedEventArgs e)
+        {
+            PhoneNumberCustomer selection = (PhoneNumberCustomer)lbTel.SelectedItem;
+            if (selection != null)
+            {
+                if (MessageBox.Show($"Etes-vous sur de vouloir supprimer le numéro de téléphone, {selection.Tel}, de la liste ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    Statics.TryCatch(() => { BDD.RemovePhoneNumberCustomer(selection); }, nameof(RemovePhoneNumber));
+                }
+            }
+        }
     }
 }

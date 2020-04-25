@@ -38,6 +38,7 @@ namespace AnnonceWPF
         private void AfficherProprietaires(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgOwners()); }
         private void AfficherClients(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgCustomers()); }
         private void AfficherVilles(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgTowns()); }
+        private void AfficherPays(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgCountries()); }
 
         private void SauvegarderModifications(object sender, RoutedEventArgs e)
         {

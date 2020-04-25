@@ -1,0 +1,69 @@
+﻿<Page x:Class="AnnonceWPF.pgTowns"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:local="clr-namespace:AnnonceWPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Background="{DynamicResource MaterialDesignPaper}"
+      FontFamily="{DynamicResource MaterialDesignFont}" 
+      Title="pgTowns">
+
+    <Grid>
+        <GroupBox Name="grpListeVilles" Header="Liste des villes" Margin="2"  >
+            <Grid>
+                <ListView Name="lvVilles" ItemsSource="{Binding}" SelectionMode="Single" Margin="1">
+                    <ListView.Resources>
+                        <ContextMenu x:Key="ctxOnItem">
+                            <MenuItem Header="Supprimer la ville sélectionnée" Click="SupprimerVille"/>
+                            <MenuItem Header="Ajouter une ville" Click="AjouterVille"/>
+                        </ContextMenu>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="ContextMenu" Value="{StaticResource ctxOnItem}"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Ajouter une ville" Click="AjouterVille"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header ="Nom">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding NameTown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="125" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="CodePostal">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding PostalCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="5" Width="75" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            <GridViewColumn Header="Pays">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox IsEditable="False" FontFamily="Champagne &amp; Limousines" FontSize="18" Width="200"
+                                            SelectedItem="{Binding Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                            ItemsSource="{Binding Countries, RelativeSource={RelativeSource AncestorType={x:Type local:pgTowns}}}" DisplayMemberPath="NameCountry"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Page>

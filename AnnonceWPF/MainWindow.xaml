@@ -57,6 +57,11 @@
                                 <iconPacks:PackIconMaterial Kind="AccountGroup" />
                             </MenuItem.Icon>
                         </MenuItem>
+                        <MenuItem Header="Villes" Click="AfficherVilles">
+                            <MenuItem.Icon>
+                                <iconPacks:PackIconBoxIcons Kind="RegularBuildingHouse" />
+                            </MenuItem.Icon>
+                        </MenuItem>
                     </MenuItem>
                 </Menu>
             </StackPanel>

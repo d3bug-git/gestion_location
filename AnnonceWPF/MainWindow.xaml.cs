@@ -37,7 +37,8 @@ namespace AnnonceWPF
         private void AfficherCategorie(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgCategories()); }
         private void AfficherProprietaires(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgOwners()); }
         private void AfficherClients(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgCustomers()); }
-        
+        private void AfficherVilles(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgTowns()); }
+
         private void SauvegarderModifications(object sender, RoutedEventArgs e)
         {
             BDD.SauvegarderModifications();
@@ -75,7 +76,8 @@ namespace AnnonceWPF
                     }
                 }
                 else { BDD.SauvegarderModifications(); }
+            }
         }
     }
-    }
+
 }

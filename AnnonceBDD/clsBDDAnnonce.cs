@@ -166,11 +166,17 @@ namespace AnnonceBDD
         }
         internal void RemoveOwner(Owner aOwner)
         {
+            if ((aOwner.PhoneNumbers?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveOwner)} : Il faut d'abord supprimer les numéros de téléphones du propriétaire."); }
+            if ((aOwner.Adverts?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveOwner)} : Il faut d'abord supprimer les annonces du propriétaire."); }
+
             //Suppression du propriètaire
             Owners.Local.Remove(aOwner);
         }
         internal void RemoveCustomer(Customer aCustomer)
         {
+            if ((aCustomer.PhoneNumbers?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveCustomer)} : Il faut d'abord supprimer les numéros de téléphones du client."); }
+            if ((aCustomer.Books?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveCustomer)} : Il faut d'abord supprimer les réservations au nom de ce client."); }
+
             //Suppression du client
             Customers.Local.Remove(aCustomer);
 
@@ -187,16 +193,26 @@ namespace AnnonceBDD
         }
         internal void RemoveCountry(Country aCountry)
         {
+            if ((aCountry.Towns?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveCountry)} : Il faut d'abord supprimer les villes associées à ce pays."); }
+            if ((aCountry.PhoneNumbers?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveCountry)} : Il faut d'abord supprimer les numéros de téléphone associés à ce pays."); }
             //Suppression du pays
             Countries.Local.Remove(aCountry);
         }
         internal void RemoveTown(Town aTown)
         {
+            if ((aTown.Customers?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveTown)} : Il faut d'abord supprimer les clients habitant la ville."); }
+            if ((aTown.Owners?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveTown)} : Il faut d'abord supprimer les propriétaires habitant la ville."); }
+            if ((aTown.Adverts?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveTown)} : Il faut d'abord supprimer les annonces dont le bien immobilier est situé dans cette ville."); }
+
             //Suppression de la ville
             Towns.Local.Remove(aTown);
         }
         internal void RemoveAdvert(Advert aAdvert)
         {
+            if ((aAdvert.Books?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveAdvert)} : Il faut d'abord supprimer les réservations associées à cette annonce."); }
+            //if ((aAdvert.Schedules?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveAdvert)} : Il faut d'abord supprimer les calendriers de prix associés à cette annonce."); }
+            //if ((aAdvert.Pictures?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveAdvert)} : Il faut d'abord supprimer les photos associées à cette annonce."); }
+            
             //Suppression d'une annonce
             Adverts.Local.Remove(aAdvert);
         }
@@ -212,6 +228,7 @@ namespace AnnonceBDD
         }
         internal void RemoveCategory(Category aCategory)
         {
+            if ((aCategory.Adverts?.Count ?? 0) > 0) { throw new InvalidOperationException($"{nameof(RemoveCategory)} : Il faut d'abord supprimer les annonces associées à cette catégorie."); }
             //Suppression d'une categorie
             Categories.Local.Remove(aCategory);
         }

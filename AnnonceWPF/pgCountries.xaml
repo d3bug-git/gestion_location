@@ -34,7 +34,7 @@
 
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header ="Nom">
+                            <GridViewColumn Header ="Nom" Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBox Text="{Binding NameCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Champagne &amp; Limousines" FontSize="18"/>

@@ -69,6 +69,7 @@ namespace AnnonceWPF
                     Statics.TryCatch(() => { BDD.RemoveBook(selection); }, nameof(SupprimerReservation));
                 }
             }
+            lvReservation.DataContext = ((Advert)lvAdverts.SelectedItem);
         }
 
         private void AjouterReservationAfficherInbox(object sender, RoutedEventArgs e)

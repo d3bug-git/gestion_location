@@ -154,7 +154,7 @@
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
                                             <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}" Background="#FF156519" >
-                                                <Image Source="{Binding Pictures.FirstorDefault}"></Image>
+                                                <Image Source="{Binding Pictures}"></Image>
                                             </ToggleButton>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>

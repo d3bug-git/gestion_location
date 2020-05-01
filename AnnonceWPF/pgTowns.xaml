@@ -38,7 +38,7 @@
                             <GridViewColumn Header ="Nom">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding NameTown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="125" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
+                                        <TextBox Text="{Binding NameTown, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Champagne &amp; Limousines" FontSize="18"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
